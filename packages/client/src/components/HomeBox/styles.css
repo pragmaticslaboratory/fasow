@@ -1,0 +1,17 @@
+.home-box-content {
+  padding: 1em;
+  height: 100%;
+  width: 100%;
+}
+
+.home-box-inner-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 2em - 40px);
+  width: calc(100% - 2em);
+  overflow-y: scroll;
+}
+
+.home-box-title-container {
+  height: 40px;
+}
