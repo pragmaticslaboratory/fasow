@@ -34,7 +34,7 @@ export class AppController {
     type: String,
     name: 'ExperimentId',
   })
-  @Post('run/:ExperimentName')
+  @Post('run/:ExperimentId')
   runTest(@Param('ExperimentId') ExperimentId: string) {
     this.appService.selectExperiment(ExperimentId);
     this.appService.runSelectedExperiment();

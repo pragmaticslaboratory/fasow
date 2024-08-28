@@ -1,4 +1,4 @@
-import ExampleExperiment from '../experiments/ExampleExperiment';
+import ExampleExperiment from '../../experiments/ExampleExperiment';
 import Experiment from './abm/Experiment';
 import ActionRead from './abm/wom/custom-actions/ActionRead';
 import ActionShare from './abm/wom/custom-actions/ActionShare';

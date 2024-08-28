@@ -1,10 +1,10 @@
-import FASOW from '../index';
-import Experiment from '../fasow/abm/Experiment';
-import { AgentState } from '../fasow/abm/interfaces/Agent/AgentState';
-import ActionRead from '../fasow/abm/wom/custom-actions/ActionRead';
-import ActionShare from '../fasow/abm/wom/custom-actions/ActionShare';
-import EnvironmentTwitter from '../fasow/scenarios/twitter/EnvironmentTwitter';
-import TwitterAgent from '../fasow/scenarios/twitter/TwitterAgent';
+import FASOW from '../fasow';
+import Experiment from '../fasow/fasow/abm/Experiment';
+import { AgentState } from '../fasow/fasow/abm/interfaces/Agent/AgentState';
+import ActionRead from '../fasow/fasow/abm/wom/custom-actions/ActionRead';
+import ActionShare from '../fasow/fasow/abm/wom/custom-actions/ActionShare';
+import EnvironmentTwitter from '../fasow/fasow/scenarios/twitter/EnvironmentTwitter';
+import TwitterAgent from '../fasow/fasow/scenarios/twitter/TwitterAgent';
 
 export default class ExampleExperiment extends Experiment {
   // eslint-disable-next-line class-methods-use-this
