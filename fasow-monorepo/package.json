@@ -2,7 +2,7 @@
   "private": true,
   "license": "MIT",
   "version": "1.0.0",
-  "homepage": "https://sasow-org.github.io/fasow-monorepo/",
+  "homepage": "https://pragmaticslaboratory.io/fasow/fasow-monorepo/",
   "name": "@fasow/root",
   "workspaces": [
     "packages/*"
