@@ -9,7 +9,7 @@ import FacebookAgent from './scenarios/facebook/FacebookAgent';
 import EnvironmentTwitter from './scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from './scenarios/twitter/TwitterAgent';
 import ITimeKeeper from './timekeeper/ITimeKeeper';
-import fasowConfig from 'fasowLoader';
+import fasowConfig from 'src/fasowLoader';
 
 /*
 todo : maybe the loads actions,agents,environments, agents, could be better
@@ -31,7 +31,7 @@ export default class FASOW {
     fasowConfig.forEach((exp) => {
       FASOW.TowerHandler.registerNewExperiment(exp);
     });
-    console.log(fasowConfig);
+    console.log('FASOW Config Loaded. ', fasowConfig);
   }
 
   loadActions(): void {

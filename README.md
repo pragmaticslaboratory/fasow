@@ -71,6 +71,32 @@ yarn start
 
 # FASOW Architecture
 
+![img.png](resources/img.png)
+
+## Reflextion Tower 
+
+The idea of the reflection tower is present in programming languages and allow us to segment a 
+software architecture by abstraction layers of different granularity. On this case, the FASOW architecture
+is segmented by 4 layers (Experiment, Environment, Agent and Actions), where each one handles a specific concept of
+the Agent Based Models.
+
+### 1.Experiment Layer
+
+The experiment layer manage the `experiments` 
+
+```typescript
+console.log('Hola mundo')
+```
+
+### 2. Environment Layer
+### 3. Agent Layer
+### 4. Action Layer
+
+## FASOW Modules
+### DataHandler Decorators 
+
+
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

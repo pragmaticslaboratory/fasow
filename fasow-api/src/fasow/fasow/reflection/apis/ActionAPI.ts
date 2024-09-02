@@ -46,7 +46,6 @@ export default class ActionAPI {
     // const actionTypeToCreate = this.actionFactories.filter(actionType => type === actionType)[0];
     // const { CreateAction } = Reflect.construct(actionTypeToCreate,[])
     if (this.actionFactories.has(type.name)) {
-      // @ts-ignore
       return this.actionFactories.get(type.name);
     }
     throw Error(`The referenced type '${type}' not exist in ActionAPI`);

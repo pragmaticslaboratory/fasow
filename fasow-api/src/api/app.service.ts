@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import FASOW from './fasow';
+import FASOW from '../fasow';
 
 @Injectable()
 export class AppService {
