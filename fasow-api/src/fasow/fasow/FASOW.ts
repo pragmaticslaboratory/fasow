@@ -8,7 +8,7 @@ import ITowerHandler from './reflection/tower/ITowerHandler';
 import FacebookAgent from './scenarios/facebook/FacebookAgent';
 import EnvironmentTwitter from './scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from './scenarios/twitter/TwitterAgent';
-import ITimeKeeper from './timekeeper/ITimeKeeper';
+// import ITimeKeeper from './timekeeper/ITimeKeeper';
 import fasowConfig from 'src/fasowLoader';
 
 /*
@@ -19,9 +19,9 @@ todo : maybe the loads actions,agents,environments, agents, could be better
 export default class FASOW {
   public static DataHandler: IDataHandler = new IDataHandler();
   public static TowerHandler: ITowerHandler = new ITowerHandler();
-  public static TimeKeeper: ITimeKeeper = new ITimeKeeper();
+  // public static TimeKeeper: ITimeKeeper = new ITimeKeeper();
 
-  private experiment: Experiment | undefined = undefined;
+  public static experiment: Experiment | undefined = undefined;
   constructor() {
     this.loadActions();
     this.loadAgents();
@@ -65,9 +65,10 @@ export default class FASOW {
     return FASOW.TowerHandler;
   }
 
+  /*
   getTimeKeeper(): ITimeKeeper {
     return FASOW.TimeKeeper;
-  }
+  } /*
 
   /**
    * Returns a "snapshot" of fasow.
@@ -134,7 +135,7 @@ export default class FASOW {
    */
   selectExperimentByName(experiment: string) {
     FASOW.TowerHandler.selectExperimentByName(experiment);
-    this.experiment = this.initializeSelectedExperiment();
+    FASOW.experiment = this.initializeSelectedExperiment();
   }
 
   /**
@@ -152,9 +153,9 @@ export default class FASOW {
     // todo : move this method to other class like FASOW ?
     // todo : maybe we need to move too the method select experiment or maybe allow to call that method from other class like fasow also
     // todo handle with a try catch if the experiments is undefined
-    FASOW.DataHandler.experiment = this.experiment;
+    // FASOW.DataHandler.experiment = FASOW.experiment;
     // exp.executeStrategy();
-    this.experiment.run();
+    FASOW.experiment.run();
     FASOW.DataHandler.writeCSVFile();
   }
 
@@ -196,10 +197,10 @@ export default class FASOW {
   }
 
   initializeSelectedExperiment(): Experiment {
-    this.experiment = FASOW.TowerHandler.createSelectedExperiment();
-    this.experiment.executeStrategy();
-    this.experiment.initialize();
-    return this.experiment;
+    FASOW.experiment = FASOW.TowerHandler.createSelectedExperiment();
+    FASOW.experiment.executeStrategy();
+    FASOW.experiment.initialize();
+    return FASOW.experiment;
   }
 
   getExperimentConfig(): MetaExperimentConfig {

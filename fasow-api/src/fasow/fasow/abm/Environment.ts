@@ -3,6 +3,7 @@ import MetaEnvironmentConfig from '../config/metaconfig/MetaEnvironmentConfig';
 import FASOW from '../FASOW';
 import Agent from './Agent';
 import type IEnvironmentCreator from './interfaces/Environment/IEnvironmentCreator';
+import Ticks from '../timekeeper/Ticks';
 
 /**
  * Environment is the place where the simulation is executed,
@@ -13,7 +14,7 @@ import type IEnvironmentCreator from './interfaces/Environment/IEnvironmentCreat
  * @method run: handle the step by step of the simulation, calling the step method each tick of the clock and notifying the DataHandler to capture  and save a state of the simulation
  */
 export default abstract class Environment
-  implements EnvironmentConfig, IEnvironmentCreator
+  implements EnvironmentConfig, IEnvironmentCreator, Ticks
 {
   id: number;
   initialized: boolean;
@@ -29,6 +30,8 @@ export default abstract class Environment
     this.initialized = false;
     this.agents = [];
     this.seeds = [];
+    this.maxTick = -1;
+    this.tick = -1;
   }
 
   /**
@@ -52,8 +55,8 @@ export default abstract class Environment
     this.seedSize = Math.round((value * this.networkSize) / 100);
     this.initialized = false;
     console.log('Setting MaxTick to --> ', config.maxTick);
-    FASOW.TimeKeeper.setMaxTick(config.maxTick);
-    console.log('MaxTick is : ', FASOW.TimeKeeper.getMaxTick());
+    this.setMaxTick(config.maxTick);
+    console.log('MaxTick is : ', this.getMaxTick());
     this.agents = [];
     this.seeds = [];
     FASOW.TowerHandler.registerMetaAgentsConfigs(config.metaAgentsConfigs);
@@ -70,13 +73,13 @@ export default abstract class Environment
    * This method allow to users to introduce the behaviour of the scenario
    */
   public run(): void {
-    while (FASOW.TimeKeeper.canNextTick()) {
+    while (this.canNextTick()) {
       this.step();
       console.log(
         'On Step: ',
-        FASOW.TimeKeeper.nextTick(),
+        this.nextTick(),
         ' of (',
-        FASOW.TimeKeeper.getMaxTick(),
+        this.getMaxTick(),
         '): \n',
         FASOW.DataHandler.getLastOutputRow(),
       );
@@ -109,7 +112,7 @@ export default abstract class Environment
       throw new Error(`Error in initialize environment with id: ${this.id}`);
     }
     this.initialized = true;
-    FASOW.TimeKeeper.setTick(0);
+    this.setTick(0);
     console.log('All done on environment!');
   }
 
@@ -233,4 +236,54 @@ export default abstract class Environment
   abstract createEnvironment(
     environmentConfig: MetaEnvironmentConfig,
   ): Environment;
+
+  maxTick: number;
+  tick: number;
+
+  /**
+   * set the tick of the clock of the simulation
+   * @param tick : number : unit of time of the simulation
+   */
+  setTick(tick: number): number {
+    this.tick = tick;
+    return this.tick;
+  }
+
+  /**
+   * returns the current tick of the clock of the simulation
+   */
+  getTick(): number {
+    return this.tick;
+  }
+
+  /**
+   * Forces a tick update, updating is value +1 and calling the DataHandler to register the data of the simulation
+   */
+  nextTick(): number {
+    FASOW.DataHandler.update();
+    this.tick += 1;
+    return this.tick;
+  }
+
+  /**
+   * returns true as long as the clock Tick is less than maxTick
+   */
+  canNextTick(): boolean {
+    return this.tick < this.maxTick;
+  }
+
+  /**
+   * set the duration of the simulation
+   * @param maxTick : number : the simulation will be executed while the tick be less than the maxTick
+   */
+  setMaxTick(maxTick: number): void {
+    this.maxTick = maxTick;
+  }
+
+  /**
+   * return the duration of the simulation
+   */
+  getMaxTick(): number {
+    return this.maxTick;
+  }
 }

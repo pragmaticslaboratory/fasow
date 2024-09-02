@@ -97,7 +97,7 @@ export default class ExperimentAgentCombinationBestSeed extends Experiment {
       environmentType: EnvironmentTwitter,
       metaAgentsConfigs: [nonSeedConfig, seedConfig],
     });
-    FASOW.TimeKeeper.setMaxRepetition(2);
+    this.setMaxRepetition(2);
   }
 
   createExperiment(): Experiment {

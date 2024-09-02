@@ -69,7 +69,8 @@ export default class IExperimentAPI {
   }
 
   setExperimentMaxRepetitions(maxRepetitions: number) {
-    FASOW.TimeKeeper.setMaxRepetition(maxRepetitions);
+    // FASOW.TowerHandler.setMaxRepetition(maxRepetitions);
+    FASOW.experiment.setMaxRepetition(maxRepetitions)
     this.experimentConfig.maxRepetitions = maxRepetitions;
   }
 
@@ -81,7 +82,7 @@ export default class IExperimentAPI {
       name: this.experimentConfig.name,
       type: this.selectedExperiment,
       description: this.experimentConfig.description,
-      maxRepetitions: FASOW.TimeKeeper.getMaxRepetition(),
+      maxRepetitions: this.experimentConfig.maxRepetitions,
       environmentConfig: FASOW.TowerHandler.getScenarioConfig(),
     };
   }

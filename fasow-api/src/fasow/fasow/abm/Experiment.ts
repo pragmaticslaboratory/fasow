@@ -4,12 +4,17 @@ import MetaExperimentConfig from '../config/metaconfig/MetaExperimentConfig';
 import Simulation from './Simulation';
 import IExperimentCreator from './interfaces/Experiment/IExperimentCreator';
 import IExperimentStrategy from './interfaces/Experiment/IExperimentStrategy';
+import Repetitions from '../timekeeper/Repetitions';
 
 /**
  * The Experiment abstract class allow to the user to Implement and Configure an Experiment overriding the Strategy Method
  */
 export default abstract class Experiment
-  implements ExperimentConfig, IExperimentCreator, IExperimentStrategy
+  implements
+    ExperimentConfig,
+    IExperimentCreator,
+    IExperimentStrategy,
+    Repetitions
 {
   name: string;
   description: string;
@@ -19,36 +24,39 @@ export default abstract class Experiment
     this.name = '';
     this.description = '';
     this.simulation = new Simulation();
+
+    this.repetition = -1;
+    this.maxRepetition = -1;
   }
 
   /**
    * Run the Experiment,initializing the model and starting the simulation
    * */
   run() {
-    FASOW.TimeKeeper.setRepetition(0);
+    this.setRepetition(0);
     this.initialize();
     console.log(
       'Ended Initialization --> On Experiment.run(), currentRepetition  is: ',
-      FASOW.TimeKeeper.getRepetition() + 1,
+      this.getRepetition() + 1,
       ' of (',
-      FASOW.TimeKeeper.getMaxRepetition(),
+      this.getMaxRepetition(),
       ')',
     );
-    while (FASOW.TimeKeeper.canNextRepetition()) {
+    while (this.canNextRepetition()) {
       if (!this.simulation.isDone()) {
         break;
       }
       console.log('Starting Simulation...');
       this.simulation.run();
       console.log('Ending Simulation...');
-      FASOW.TimeKeeper.nextRepetition();
-      if (FASOW.TimeKeeper.canNextRepetition()) {
+      this.nextRepetition();
+      if (this.canNextRepetition()) {
         this.initialize();
         console.log(
           'Ended Initialization --> On Experiment.run(), currentRepetition  is: ',
-          FASOW.TimeKeeper.getRepetition() + 1,
+          this.getRepetition() + 1,
           ' of (',
-          FASOW.TimeKeeper.getMaxRepetition(),
+          this.getMaxRepetition(),
           ')',
         );
       }
@@ -61,9 +69,9 @@ export default abstract class Experiment
    */
   initialize() {
     console.log('Starting initialization...');
-    if (FASOW.TimeKeeper.canNextRepetition()) {
+    if (this.canNextRepetition()) {
       this.loadConfig();
-      this.simulation.initialize(FASOW.TimeKeeper.getRepetition());
+      this.simulation.initialize(this.getRepetition());
     }
   }
 
@@ -77,7 +85,7 @@ export default abstract class Experiment
     this.name = config.name;
     this.description = config.description;
     this.simulation = new Simulation();
-    FASOW.TimeKeeper.setMaxRepetition(config.maxRepetitions);
+    this.setMaxRepetition(config.maxRepetitions);
   }
 
   /**
@@ -101,5 +109,57 @@ export default abstract class Experiment
   executeStrategy(): void {
     console.log('Executing Strategy');
     this.Strategy();
+  }
+
+  maxRepetition: number;
+  repetition: number;
+
+  /**
+   * Allows to set the repetition of the Experiment, this will hardly be called
+   * @param repetition : number : The number that indicate the actual repetition of the experiment
+   */
+  setRepetition(repetition: number) {
+    this.repetition = repetition;
+  }
+
+  /**
+   * Return the Repetition of the Experiment
+   */
+  getRepetition(): number {
+    return this.repetition;
+  }
+
+  /**
+   * Updates the repetition number to +1
+   */
+  nextRepetition(): number {
+    this.repetition += 1;
+    return this.repetition;
+  }
+
+  /**
+   * Returns true if is possible to do another repetition
+   */
+  canNextRepetition(): boolean {
+    return this.repetition < this.maxRepetition;
+  }
+
+  /**
+   * Allows to set the max repetitions
+   * @param maxRepetition : number : The quantity of repetitions to execute the Experiment
+   */
+  setMaxRepetition(maxRepetition: number): void {
+    this.maxRepetition = maxRepetition;
+  }
+
+  /**
+   * Return the max Repetitions to do the Experiment
+   */
+  getMaxRepetition(): number {
+    return this.maxRepetition;
+  }
+
+  resetRepetitions() {
+    this.repetition = -1;
   }
 }

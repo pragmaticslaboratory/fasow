@@ -61,7 +61,6 @@ export default class EnvironmentAPI {
     environmentType: typeof Environment,
   ): typeof Environment {
     if (this.environmentFactories.has(environmentType.name)) {
-      // @ts-ignore
       return this.environmentFactories.get(environmentType.name);
     }
     throw Error(
