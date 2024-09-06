@@ -16,7 +16,7 @@ export default function ExperimentSelector({
     const [selectedExperiment, setSelectedExperiment] = useState("ExampleExperiment");
 
     useEffect(() => {
-        console.log({init})
+        //console.log({init})
         if(!init){
             setSelectedExperiment("ExampleExperiment");
             //setExperiment(selectedExperiment);

@@ -70,7 +70,7 @@ export default class IExperimentAPI {
 
   setExperimentMaxRepetitions(maxRepetitions: number) {
     // FASOW.TowerHandler.setMaxRepetition(maxRepetitions);
-    FASOW.experiment.setMaxRepetition(maxRepetitions)
+    FASOW.experiment.setMaxRepetition(maxRepetitions);
     this.experimentConfig.maxRepetitions = maxRepetitions;
   }
 

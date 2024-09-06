@@ -1,13 +1,11 @@
 import { Box, Typography } from "@mui/material";
 
-import MetaExperimentConfig from "@fasow/backend/src/fasow/config/metaconfig/MetaExperimentConfig";
-import ExperimentForm from "./ExperimentForm";
 import ExperimentSelector from "./ExperimentSelector";
 
 interface IProps {
     experiments: any[];
     setExperiment: (name: string) => void;
-    experimentConfig: MetaExperimentConfig | undefined;
+    experimentConfig?;// MetaExperimentConfig | undefined;
 }
 
 export default function ExperimentConfigurationBox({
@@ -26,7 +24,7 @@ export default function ExperimentConfigurationBox({
         setExperiment={setExperiment}
         experiments={experiments}
       />
-      <ExperimentForm experimentConfig={experimentConfig} />
+      {/*<ExperimentForm experimentConfig={experimentConfig} />*/}
     </Box>
   );
 }

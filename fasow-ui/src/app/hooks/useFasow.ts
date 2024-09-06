@@ -102,18 +102,26 @@ export const useExperiments = () => {
   //Todo maybe export fasow types could help here.
 
   const [experimentConfig, setExperimentConfig] = useState({});
+  /*
   let response = undefined;
   RequestGetState().then(res => response = res)
   const { state } = response
   const { experiments } = state;
   const formattedExperiments = experiments.map(({ type }) => type);
 
+   */
+
   const setExperiment = (
     experimentName: string
   ) => {
 
-    let data = undefined;
-    RequestPostSelectExperiment().then(r => data = r)
+    let response = undefined;
+    RequestGetState().then(res => response = res)
+    const { state } = response
+    const { experiments } = state;
+    const formattedExperiments = experiments.map(({ type }) => type);
+    //let data = undefined;
+    // RequestPostSelectExperiment().then(r => data = r)
     let config = null
     RequestGetSelectedExperimentConfig().then(r => config = r)
     //const config = fasowInstance.getExperimentConfig();
@@ -121,7 +129,7 @@ export const useExperiments = () => {
   };
 
   return {
-    experiments: formattedExperiments,
+    experiments: [],
     setExperiment,
     experimentConfig
   } as const;

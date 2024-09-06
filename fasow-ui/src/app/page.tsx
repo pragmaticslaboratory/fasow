@@ -6,8 +6,14 @@ import ExperimentConfigurationBox from "@fasow-ui/app/components/ExperimentConfi
 import AgentConfigurationBox from "@fasow-ui/app/components/AgentConfigurationBox";
 import DataHandlerOutputBox from "@fasow-ui/app/components/DataHandlerOutputBox";
 import {PlayArrow} from "@mui/icons-material";
-import {useEffect} from "react";
-import {RequestGetState, RequestPostRunExperiment, useExperiments} from "@fasow-ui/app/hooks/useFasow";
+import {useEffect, useState} from "react";
+import {
+  RequestGetSelectedExperimentConfig,
+  RequestGetState,
+  RequestPostRunExperiment,
+  RequestPostSelectExperiment,
+  useExperiments
+} from "@fasow-ui/app/hooks/useFasow";
 
 /*
 const theme = createTheme({
@@ -31,23 +37,46 @@ export default function Home() {
 
   const { experimentConfig, experiments, setExperiment } = useExperiments();
   // const { results, runExperiment } = useRunExperiment();
+  const [experimentsV2, setExperimentsV2] = useState([])
+  const [fasowState, setFasowState] = useState({state:{experiments:[], actions:[], agent_states: [], agents:[]}})
 
-  /*
   useEffect( () => {
+
+
+    RequestGetState().then((state)=> {
+
+      setFasowState(state);
+      console.log({fasowState})
+      const {experiments} = fasowState.state;
+      setExperimentsV2(experiments)
+
+      console.log("In request response: ", experimentsV2)
+    });
+
+    console.log("on Effect: ", experimentsV2)
+
+    console.log("On Effect: ",{fasowState})
+/*
+
+    console.log("experimentConfigPre: ", experimentConfig)
+
+    RequestGetSelectedExperimentConfig().then((r) => {
+      console.log({r})
+      setExperiment("")
+    })
+
     RequestPostRunExperiment().then((r)=> {
       console.log("Start Run Exp")
       console.log(r)
       console.log("End Run Exp")
     });
+  */
 
-    RequestGetState().then((r)=> {
-      console.log("Start GET STATE")
-      console.log(r)
-      console.log("End GET STATE")
-    });
 
-  }, []); */
+  }, []);
 
+  console.log("on page: ", experimentsV2)
+  console.log("On page: ",fasowState.state.experiments.map((exp) => exp.type))
   return (
     <div >
       <div className="App">
@@ -57,7 +86,7 @@ export default function Home() {
             <Grid2 item xs={6} sx={{ height: "50%" }}>
               <HomeBox title="Experiment configuration">
                 {/*<ExperimentConfigurationBox experiments={} setExperiment={} experimentConfig={}/>*/}
-                <ExperimentConfigurationBox  experiments={experiments} setExperiment={setExperiment} experimentConfig={experimentConfig}/>
+                <ExperimentConfigurationBox  experiments={fasowState.state.experiments.map((exp) => exp.type)} setExperiment={setExperiment} experimentConfig={experimentConfig}/>
               </HomeBox>
             </Grid2>
             <Grid2 item xs={6} sx={{ height: "50%" }}>

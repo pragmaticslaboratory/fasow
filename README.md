@@ -71,46 +71,192 @@ yarn start
 
 # FASOW Architecture
 
+The FASOW architecture is based on the idea of the reflection tower, and is composed by 
+3 principal modules, the `Experiment`, the `TowerHandler` and the `DataHandler`. Thus, FASOW provides us
+A way to implement and create a simulation of an Agent Based model of a Word of Mouth campaign on a Social
+Network Site (SNS), managing a flexible architecture easy to learn (easy to reach more users?) and an output generator.
 
-//HOLA PROFE AUN TENGO QUE EDITAR ESTA FOTO YA QUE EL TIME KEEPER ESTA DENTRO DE EXPERIMENT Y ENVIRONMENT XD
-![img.png](resources/img.png)
+![img_6.png](img_6.png)
+# DataHandler
+# TowerHandler
 
-## Reflextion Tower 
+## Reflective Tower 
 
 The idea of the reflection tower is present in programming languages and allow us to segment a 
-software architecture by abstraction layers of different granularity. On this case, the FASOW architecture
-is segmented by 4 layers (Experiment, Environment, Agent and Actions), where each one handles a specific concept of
+software architecture by abstraction levels of different granularity. On this case, the FASOW architecture
+is segmented by 4 layers (Experiment, Environment, Agent and Actions), where each one handles a specific concern of
 the Agent Based Models.
 
-### FASOW Levels/Layers
+### FASOW Levels
 
-A level in FASOW is an abstraction Layer that handles a specific concept of the ABMs and is composed principally
+A level in FASOW is an abstraction that handles a specific concern of the ABMs and is composed principally
 by three modules or more.
 
 ![img_1.png](img_1.png)
 
-* MetaLevel Interface: The MetaInterface that exposes the implementation of the ABM concept.
-* MetaLevel Config: The MetaConfig Object which is a communication object that connect the MetaLevelAPI with the BaseLevelAPI
-* BaseLevel Interface: The Abstract BaseInterface which had all the logic related with the ABM concept.
-* ParticularityLevel Modules: And **N** particularities modules which add more functionality to FASOW
-and extends the BaseLevel Interface.
+* MetaLevel Interface: A Metaprogramming interface that exposes the functionality of the implementation of the base interface
+  and had the capability to register and manage the new particularities for the level by his instantiation on the execution time. 
+
+* MetaLevel Config: Is a Meta-Configuration object which communicate and connect the MetaLevel Interface with the BaseLevel Interface, 
+  with this configuration and with the Meta Level Interface we can indicate and manage how to the instantiation of the particularities 
+  will be handled in the execution time.
+
+* BaseLevel Interface: A Base Interface, that can be abstract or not, but that defines the base functionality for the level, 
+  this interface is the entity that the MetaLevel Interface will  instantiate on execution time.
+
+* ParticularityLevel Modules: These modules are entities that extends the functionality that provides the base level interface, 
+  and allows to users to implements other requirements that cant be provided by the base level interface.
 
 by this way, and by adding levels with less particularity knowledge we can start to see the Reflection Tower!
 which connect and centralize all MetaInterfaces on the TowerHandler.
 
 ![img_2.png](img_2.png)
 
-### 1.Experiment Layer
+### 1.Experiment Level
 
-The experiment layer manage the `experiments` 
+The experiment level manage the `experiments` on FASOW, and represents the model to study, implement and simulate, 
+this level is composed by the `ExperimentAPI`, the `MetaExperimentConfig` and the Abstract `Experiment` class 
+with his extended particularities modules.
+
+The `Experiments` allow us to introduce the input the model and define strategy to follow during the simulation
+on FASOW, however, to do that as previous step we need to register all modules that will being used on the simulation by using the use of the TowerHandle.
+```typescript
+
+abstract class Experiment {
+  name: string;
+  description: string;
+  repetition: number;
+  maxRepetitions: number;
+  
+  strategy(): void;
+  run();
+  setConfig(config: MetaExperimentConfig): void;
+  loadConfig(): void;
+  //..getters and setters 
+}
+```
+The `ExperimentAPI` manages the `Experiments` by handling his registration and creation, also allow us to set and change 
+the configuration on the MetaExperimentConfig, which represents part of the information required to instantiate and 
+initialize the model to run the simulation.
+```typescript
+
+interface IExperimentAPI {
+  selectExperimentByName(experiment: string): void;
+  registerNewExperiment(exp: typeof Experiment): void;
+  setExperimentName(name: string): void;
+  setExperimentDescription(description: string): void;
+  setExperimentMaxRepetitions(maxRepetitions: number): void;
+  getExperimentConfig(): MetaExperimentConfig;
+  createSelectedExperiment(): Experiment;
+  selectExperiment(selected: typeof Experiment): void;
+  getSelectedExperiment(): typeof Experiment;
+  getState(): any;
+  selectExperimentByName(experiment: string): void;
+}
+```
+
+The `MetaExperimentConfig` help us to define a name, a description and what to instantiate for the experiment
+to simulate, and  also, we can define a number of times which the simulation will be repeated to handles the
+stochastic effect.
+
+```typescript
+export default interface MetaExperimentConfig {
+  // Experiment Metadata
+  readonly id: number;
+  name: string;
+  description: string;
+  type: typeof Experiment;
+  maxRepetitions: number;
+  // Scenario Metadata
+  environmentConfig: MetaEnvironmentConfig;
+}
+```
+
+### 2. Environment Level
+
+The environment level manages the `Environments` which are the abstraction of a Social Network Site (SNS) and the simulation,
+allow us to define and configure the Simulation. This level is composed by the `EnvironmentAPI`, the `MetaEnvironmentConfig`
+and the Abstract `Environment`.
+
+The `Environments` being the abstraction of the simulation and a Social Network Site, enable us to set the size of the
+simulation, the types of Agents to create and his relationships, and the duration of a simulation. Also, provides
+the place to define the behavior that a social network site and his users will follow.
+
+```typescript
+export default abstract class Environment implements EnvironmentConfig, IEnvironmentCreator, Ticks {
+  id: number;
+  initialized: boolean;
+  seedSize: number;
+  networkSize: number;
+  seeds: Agent[];
+  agents: Agent[];
+  maxTick: number;
+  tick: number;
+  
+  setConfig(config: MetaEnvironmentConfig): Environment;
+  public abstract step(): void;
+  public run(): void;
+  initialize(): void;
+  createAgents(): void;
+  addFollowers(): void;
+  addFollowings(): void;
+  isDone(): boolean;
+  resetAgentStates(): void;
+  resetSeedStates(): void;
+  abstract createEnvironment(environmentConfig: MetaEnvironmentConfig): Environment;
+  //...getters and setters
+}
+```
+The `MetaEnvironmentConfig` establish the configuration of the simulation like the size of agents to create, the duration 
+of the simulation, the SNS to use and the configuration of the agents to instantiate.
+
+```typescript
+export default interface MetaEnvironmentConfig {
+  networkSize: number;
+  maxTick: number;
+  environmentType: typeof Environment;
+  metaAgentsConfigs: MetaAgentConfig[];
+}
+```
+
+The `MetaEnvironmentAPI` manages the registration of the new Environments particularities and the configuration of the
+Environment that will be created on the execution time.
+
+```typescript
+export default interface EnvironmentAPI {
+  //...
+  registerNewEnvironment(newEnvironmentType: typeof Environment)
+  private getEnvironment(environmentType: typeof Environment): typeof Environment //Why is private ?
+  generateEnvironment(config: MetaEnvironmentConfig): Environment
+  setNetworkToScenario(environment: typeof Environment)
+  addAgentToScenario(agentConfig: MetaAgentConfig)
+  setNetworkSizeToScenario(size: number)
+  setPeriodsToScenario(max: number)
+  setScenarioConfig(scenarioConfig: MetaEnvironmentConfig)
+  getScenarioConfig(): MetaEnvironmentConfig
+  resetScenarioConfig(): MetaEnvironmentConfig
+  getState(): any
+}
+```
+
+### 3. Agent Level
+
+The experiment layer manage the `experiments`
+
+```typescript
+console.log('Hola mundo')
+```
+### 4. Action Level
+
+The experiment layer manage the `experiments`
 
 ```typescript
 console.log('Hola mundo')
 ```
 
-### 2. Environment Layer
-### 3. Agent Layer
-### 4. Action Layer
+## The FASOW Tower
+
+![img_4.png](img_4.png)
 
 ## FASOW Modules
 ### DataHandler Decorators 
