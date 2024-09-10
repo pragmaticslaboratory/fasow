@@ -6,26 +6,16 @@ import { Box, TextField, Typography } from "@mui/material";
 interface IProps {
   experiments: any[];
   setExperiment: (name: string) => void;
+  selectedExperiment;
 }
 
 export default function ExperimentSelector({
+  selectedExperiment,
   experiments,
   setExperiment,
 }: IProps) {
-    const [init, setInit] = useState(false);
-    const [selectedExperiment, setSelectedExperiment] = useState("ExampleExperiment");
-
-    useEffect(() => {
-        //console.log({init})
-        if(!init){
-            setSelectedExperiment("ExampleExperiment");
-            //setExperiment(selectedExperiment);
-            setInit(true);
-        }
-    },[init, selectedExperiment, setExperiment, setSelectedExperiment])
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      setSelectedExperiment(event.target.value);
-      //setExperiment(event.target.value);
+      setExperiment(event.target.value);
   };
 
 
@@ -36,6 +26,7 @@ export default function ExperimentSelector({
         id="outlined-select-currency-native"
         select
         label="Experiment to Simulate"
+        value={selectedExperiment}
         onChange={handleChange}
         SelectProps={{
           native: true,

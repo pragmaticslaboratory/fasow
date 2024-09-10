@@ -5,7 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
   Button,
-  Grid,
+  Grid2,
   MenuItem,
   Slider,
   TextField,
@@ -61,8 +61,8 @@ export default function AgentActions() {
       editable: true,
       renderCell: () => 20,
       renderEditCell: () => (
-        <Grid container spacing={2}>
-          <Grid item xs={7}>
+        <Grid2 container spacing={2}>
+          <Grid2 item xs={7}>
             <Slider
               step={0.0001}
               min={0}
@@ -71,11 +71,11 @@ export default function AgentActions() {
                 marginLeft: "5px",
               }}
             />
-          </Grid>
-          <Grid item xs={5}>
+          </Grid2>
+          <Grid2 item xs={5}>
             <TextField fullWidth required variant="outlined" type="number" />
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       ),
     },
     {
@@ -117,7 +117,7 @@ export default function AgentActions() {
       <Spacing />
       <Typography variant="overline">Actions</Typography>
       <Spacing />
-      <Grid item xs={12}>
+      <Grid2 item xs={12}>
         <div style={{ height: 400, width: "100%" }}>
           <DataGrid
             rows={[]}
@@ -126,7 +126,7 @@ export default function AgentActions() {
             rowsPerPageOptions={[5]}
           />
         </div>
-      </Grid>
+      </Grid2>
     </Box>
   );
 }

@@ -32,6 +32,9 @@ export default class FASOW {
       FASOW.TowerHandler.registerNewExperiment(exp);
     });
     console.log('FASOW Config Loaded. ', fasowConfig);
+
+    FASOW.TowerHandler.selectExperimentByName('ExampleExperiment');
+    this.initializeSelectedExperiment();
   }
 
   loadActions(): void {
@@ -64,11 +67,6 @@ export default class FASOW {
   getTowerHandler(): ITowerHandler {
     return FASOW.TowerHandler;
   }
-
-  /*
-  getTimeKeeper(): ITimeKeeper {
-    return FASOW.TimeKeeper;
-  } /*
 
   /**
    * Returns a "snapshot" of fasow.
@@ -136,6 +134,7 @@ export default class FASOW {
   selectExperimentByName(experiment: string) {
     FASOW.TowerHandler.selectExperimentByName(experiment);
     FASOW.experiment = this.initializeSelectedExperiment();
+    return FASOW.TowerHandler.getExperimentConfig();
   }
 
   /**

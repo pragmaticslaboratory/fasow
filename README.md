@@ -73,7 +73,7 @@ yarn start
 
 The FASOW architecture is based on the idea of the reflection tower, and is composed by 
 3 principal modules, the `Experiment`, the `TowerHandler` and the `DataHandler`. Thus, FASOW provides us
-A way to implement and create a simulation of an Agent Based model of a Word of Mouth campaign on a Social
+a way to implement and create a simulation of an Agent Based model of a Word of Mouth campaign on a Social
 Network Site (SNS), managing a flexible architecture easy to learn (easy to reach more users?) and an output generator.
 
 ![img_6.png](img_6.png)
@@ -84,7 +84,7 @@ Network Site (SNS), managing a flexible architecture easy to learn (easy to reac
 
 The idea of the reflection tower is present in programming languages and allow us to segment a 
 software architecture by abstraction levels of different granularity. On this case, the FASOW architecture
-is segmented by 4 layers (Experiment, Environment, Agent and Actions), where each one handles a specific concern of
+is segmented by 4 levels (Experiment, Environment, Agent and Actions), where each one handles a specific concern of
 the Agent Based Models.
 
 ### FASOW Levels
@@ -94,12 +94,13 @@ by three modules or more.
 
 ![img_1.png](img_1.png)
 
-* MetaLevel Interface: A Metaprogramming interface that exposes the functionality of the implementation of the base interface
-  and had the capability to register and manage the new particularities for the level by his instantiation on the execution time. 
+* MetaLevel Interface: A Metaprogramming interface that exposes the implementation of the base interface. The MetaLevel interface
+  provides methods to managed, define or interact with the instantiation of the particularities of the level on execution time, and provides
+  the capability to register a new particularity component for the level. 
 
-* MetaLevel Config: Is a Meta-Configuration object which communicate and connect the MetaLevel Interface with the BaseLevel Interface, 
-  with this configuration and with the Meta Level Interface we can indicate and manage how to the instantiation of the particularities 
-  will be handled in the execution time.
+* MetaLevel Config: Is a Meta-Configuration object which communicate and connect the MetaLevel Interface with the BaseLevel Interface.
+  This objects had certain information that is required to pass through the particularity constructor when we will instantiate them
+  on execution time.
 
 * BaseLevel Interface: A Base Interface, that can be abstract or not, but that defines the base functionality for the level, 
   this interface is the entity that the MetaLevel Interface will  instantiate on execution time.

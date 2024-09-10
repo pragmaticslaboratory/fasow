@@ -9,6 +9,7 @@ interface IProps {
 }
 
 export default function ExperimentForm({ experimentConfig }: IProps) {
+  //console.log("onExperimentForm", experimentConfig)
   return (
     <Box>
       <Spacing />

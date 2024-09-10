@@ -8,14 +8,10 @@ import DataHandlerOutputBox from "@fasow-ui/app/components/DataHandlerOutputBox"
 import {PlayArrow} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import {
-  RequestGetSelectedExperimentConfig,
-  RequestGetState,
-  RequestPostRunExperiment,
-  RequestPostSelectExperiment,
-  useExperiments
+  useFASOW
 } from "@fasow-ui/app/hooks/useFasow";
 
-/*
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -32,86 +28,60 @@ const theme = createTheme({
     },
   },
 });
-*/
-export default function Home() {
 
-  const { experimentConfig, experiments, setExperiment } = useExperiments();
-  // const { results, runExperiment } = useRunExperiment();
-  const [experimentsV2, setExperimentsV2] = useState([])
-  const [fasowState, setFasowState] = useState({state:{experiments:[], actions:[], agent_states: [], agents:[]}})
+export default function Home() {
+  const fasowManager = useFASOW();
 
   useEffect( () => {
-
-
-    RequestGetState().then((state)=> {
-
-      setFasowState(state);
-      console.log({fasowState})
-      const {experiments} = fasowState.state;
-      setExperimentsV2(experiments)
-
-      console.log("In request response: ", experimentsV2)
-    });
-
-    console.log("on Effect: ", experimentsV2)
-
-    console.log("On Effect: ",{fasowState})
-/*
-
-    console.log("experimentConfigPre: ", experimentConfig)
-
-    RequestGetSelectedExperimentConfig().then((r) => {
-      console.log({r})
-      setExperiment("")
-    })
-
-    RequestPostRunExperiment().then((r)=> {
-      console.log("Start Run Exp")
-      console.log(r)
-      console.log("End Run Exp")
-    });
-  */
-
-
+    fasowManager.operations.init();
+    // fasowManager.operations.setExperiment(fasowManager.states.selectedExperiment);
   }, []);
-
-  console.log("on page: ", experimentsV2)
-  console.log("On page: ",fasowState.state.experiments.map((exp) => exp.type))
-  return (
-    <div >
-      <div className="App">
-        <NavBar />
-        <div className="app-content">
-          <Grid2 container spacing={1} sx={{ height: "100%" }}>
-            <Grid2 item xs={6} sx={{ height: "50%" }}>
-              <HomeBox title="Experiment configuration">
-                {/*<ExperimentConfigurationBox experiments={} setExperiment={} experimentConfig={}/>*/}
-                <ExperimentConfigurationBox  experiments={fasowState.state.experiments.map((exp) => exp.type)} setExperiment={setExperiment} experimentConfig={experimentConfig}/>
-              </HomeBox>
-            </Grid2>
-            <Grid2 item xs={6} sx={{ height: "50%" }}>
-              <HomeBox title="Agent configuration">
-                {/*<AgentConfigurationBox experimentConfig={}/>*/}
-              </HomeBox>
-            </Grid2>
-            <Grid2 item xs={12} sx={{ height: "50%" }}>
-              <HomeBox title="Data handler output">
-                {/*<DataHandlerOutputBox results={} />*/}
-              </HomeBox>
-            </Grid2>
+  // console.log(fasowManager)
+  return  <ThemeProvider theme={theme}>
+    {fasowManager.states.isReady? <div >
+    <div className="App">
+      <NavBar />
+      <div className="app-content">
+        <Grid2 container spacing={2} height={'100vh'}>
+          <Grid2 size={6} height={'50vh'} >
+            <HomeBox title="Experiment configuration">
+              <ExperimentConfigurationBox
+                selectedExperiment={fasowManager.states.selectedExperiment}
+                experiments={fasowManager.data.fasowState.state.experiments.map((exp) => exp.type)}
+                setExperiment={fasowManager.operations.setExperiment}
+                experimentConfig={fasowManager.data.experimentConfig}
+              />
+            </HomeBox>
           </Grid2>
-        </div>
+          <Grid2 size={6} height={'50vh'}>
+            <HomeBox title="Agent configuration">
+              <AgentConfigurationBox
+                experimentConfig={fasowManager.data.experimentConfig}
+              />
+            </HomeBox>
+          </Grid2>
+          <Grid2 size={12} height={'50vh'}>
+            <HomeBox title="Data handler output">
+              <DataHandlerOutputBox
+                results={fasowManager.data.results}
+              />
+            </HomeBox>
+          </Grid2>
+        </Grid2>
       </div>
-      <Fab
-        color="primary"
-        variant="extended"
-        aria-label="add"
-        onClick={() => {} }
-        sx={{ position: "absolute", bottom: 108, right: 72 }}
-      >
-        <PlayArrow sx={{ mr: 1 }} />
-        Run experiment
-      </Fab>
     </div>
-  );
+    <Fab
+      color="primary"
+      variant="extended"
+      aria-label="add"
+      onClick={() => {
+        fasowManager.operations.runSelectedExperiment()
+      } }
+      sx={{ position: "absolute", bottom: 108, right: 72 }}
+    >
+      <PlayArrow sx={{ mr: 1 }} />
+      Run experiment
+    </Fab>
+  </div> : <>Loading...</>}
+  </ThemeProvider>
 }

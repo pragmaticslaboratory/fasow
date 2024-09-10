@@ -1,5 +1,5 @@
 import Agent from '../abm/Agent';
-import Experiment from '../abm/Experiment';
+
 import {
   AccumAgentKeysArray,
   CountAgentStatesObjectKeysArray,
@@ -286,7 +286,7 @@ export default class IDataHandler {
   getState(): any {
     return {
       state: {
-        selectedExperiment: FASOW.TowerHandler.getSelectedExperiment(),
+        selectedExperiment: FASOW.TowerHandler.getSelectedExperimentTypeName(),
         actions: FASOW.TowerHandler.getActionAPIState(),
         agents: FASOW.TowerHandler.getAgentAPIState(),
         environments: FASOW.TowerHandler.getEnvironmentAPIState(),

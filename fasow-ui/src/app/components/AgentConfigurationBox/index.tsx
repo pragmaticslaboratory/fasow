@@ -1,24 +1,21 @@
-import {  useMemo } from "react";
-
-// import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, Switch, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import MetaExperimentConfig from "@fasow/backend/src/fasow/config/metaconfig/MetaExperimentConfig";
-
+import {useMemo} from "react";
 interface IProps {
-  experimentConfig: MetaExperimentConfig | undefined;
+  experimentConfig;
 }
 
 export default function AgentConfigurationBox({experimentConfig}: IProps) {
-
+  console.log(experimentConfig)
   const rows = useMemo(
     () =>
-      experimentConfig?.environmentConfig.metaAgentsConfigs.sort(
+      experimentConfig?.environmentConfig?.metaAgentsConfigs?.sort(
         (a, b) => a.id - b.id
       ) ?? [],
     [experimentConfig]
   );
 
+  console.log({rows})
 
   const columns: GridColDef[] = [
     {
@@ -76,7 +73,6 @@ export default function AgentConfigurationBox({experimentConfig}: IProps) {
           autoHeight
           pageSize={5}
           rowsPerPageOptions={[5]}
-          experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>
       {/* <NewAgentModal

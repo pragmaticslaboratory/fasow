@@ -7,12 +7,6 @@ import { ApiParam, ApiTags } from '@nestjs/swagger';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post('run')
-  run() {
-    this.appService.runExperiment();
-    return this.appService.clearDataHandlerOutput();
-  }
-
   @ApiParam({
     name: 'ExperimentId',
     type: String,
@@ -44,7 +38,9 @@ export class AppController {
   @Get('getSelectedExperimentConfig')
   getSelectedExperimentConfig() {
     //Todo: Maybe replace the undefined for nulls, because if the response had undefined, then that response key will be removed instead of been returned with null value
+
     const selectedExperimentConfig = this.appService.getExperimentConfig();
+
     console.log('getSelectedExperimentConfig: ', selectedExperimentConfig);
     return selectedExperimentConfig;
   }

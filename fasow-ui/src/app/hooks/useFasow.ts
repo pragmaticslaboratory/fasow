@@ -48,8 +48,8 @@ export async function RequestGetSelectedExperimentConfig() {
 }
 
 
-export async function RequestPostSelectExperiment() {
-  const url = 'http://localhost:3001/select/ExampleExperiment';
+export async function RequestPostSelectExperiment(experimentName: string) {
+  const url = `http://localhost:3001/select/${experimentName}`;
 
   try {
     const response = await fetch(url, {
@@ -73,8 +73,9 @@ export async function RequestPostSelectExperiment() {
   }
 }
 
-export async function RequestPostRunExperiment() {
-  const url = 'http://localhost:3001/run/ExampleExperiment';
+export async function RequestPostRunExperiment(experimentName: string) {
+  console.log(experimentName)
+  const url = `http://localhost:3001/run/${experimentName}`;
 
   try {
     const response = await fetch(url, {
@@ -98,57 +99,83 @@ export async function RequestPostRunExperiment() {
   }
 }
 
-export const useExperiments = () => {
+export const useFASOW = () => {
   //Todo maybe export fasow types could help here.
 
-  const [experimentConfig, setExperimentConfig] = useState({});
-  /*
-  let response = undefined;
-  RequestGetState().then(res => response = res)
-  const { state } = response
-  const { experiments } = state;
-  const formattedExperiments = experiments.map(({ type }) => type);
 
-   */
+  const [fasowState, setFasowState] = useState({state:{selectedExperiment: "",experiments:[], actions:[], agent_states: [], agents:[]}})
+  const [experiments, setExperiments] = useState([])
+  const [experimentConfig, setExperimentConfig] = useState({})
+  const [results, setResults] = useState([])
+
+  const [isReady, setIsReady] = useState(false);
+  const [isSelecting, setIsSelecting] = useState(false);
+
+  const [selectedExperiment, setSelectedExperiment] = useState("")
+
+  const init = () => {
+    RequestGetState().then((state)=> {
+
+      const {experiments, selectedExperimentState} = fasowState.state;
+      setSelectedExperiment(selectedExperimentState)
+      setFasowState(state);
+      setExperiments(experiments);
+
+      // getExp config
+      RequestGetSelectedExperimentConfig().then((responseExperimentConfig) => {
+        setExperimentConfig(responseExperimentConfig);
+        console.log({responseExperimentConfig})
+        RequestPostRunExperiment(selectedExperiment).then((responseRunExperiment)=> {
+          console.log("responseRunExperiment",responseRunExperiment)
+          //setResults(responseRunExperiment)
+          setIsReady(true)
+        });
+
+      })
+    })
+  }
 
   const setExperiment = (
     experimentName: string
   ) => {
+    RequestPostSelectExperiment(experimentName).then((res) => {
+      RequestGetState().then((state)=> {
 
-    let response = undefined;
-    RequestGetState().then(res => response = res)
-    const { state } = response
-    const { experiments } = state;
-    const formattedExperiments = experiments.map(({ type }) => type);
-    //let data = undefined;
-    // RequestPostSelectExperiment().then(r => data = r)
-    let config = null
-    RequestGetSelectedExperimentConfig().then(r => config = r)
-    //const config = fasowInstance.getExperimentConfig();
-    setExperimentConfig({ ...config });
+        const {experiments, selectedExperiment} = fasowState.state;
+        setSelectedExperiment(selectedExperiment)
+        setFasowState(state);
+        setExperiments(experiments);
+
+        // getExp config
+        RequestGetSelectedExperimentConfig().then((responseExperimentConfig) => {
+          setExperimentConfig(responseExperimentConfig);
+        })
+      })
+    });
   };
 
-  return {
-    experiments: [],
-    setExperiment,
-    experimentConfig
-  } as const;
-};
-
-/*
-export const useRunExperiment = () => {
-  const [results, setResults] = useState<any[]>([]);
-
-  const runExperiment = useCallback(async () => {
-
-    const output = await RequestPostRunExperiment()
-    setResults(output);
-  }, []);
+  const runSelectedExperiment = () => {
+    RequestPostRunExperiment(fasowState.state.selectedExperiment).then((responseRunExperiment)=> {
+      setResults(responseRunExperiment)
+    });
+  }
 
   return {
-    runExperiment,
-    results,
+    data: {
+      fasowState: fasowState,
+      experiments: experiments,
+      experimentConfig: experimentConfig,
+      results: results,
+    },
+    states: {
+      selectedExperiment,
+      isReady,
+      isSelecting,
+    },
+    operations: {
+      setExperiment,
+      runSelectedExperiment,
+      init
+    }
   };
 };
-
-*/

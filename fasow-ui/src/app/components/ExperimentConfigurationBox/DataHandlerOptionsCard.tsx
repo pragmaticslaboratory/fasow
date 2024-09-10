@@ -1,4 +1,4 @@
-import { FormControlLabel, Grid, Switch, Typography } from "@mui/material";
+import { FormControlLabel, Grid2, Switch, Typography } from "@mui/material";
 
 // import { useExperimentConfigContext } from "../../../context/ExperimentConfigProvider";
 // import { ExperimentReducerTypes } from "../../../context/reducer/types/ExperimentReducerTypes";
@@ -16,20 +16,20 @@ export default function DataHandlerOptionsCard() {
   return (
     <div>
       <Typography variant="overline">Data output</Typography>
-      <Grid container spacing={1}>
-        <Grid item xs={6}>
+      <Grid2 container spacing={1}>
+        <Grid2 item xs={6}>
           <FormControlLabel
             control={<Switch checked />}
             label="Essential Data"
           />
-        </Grid>
-        <Grid item xs={6}>
+        </Grid2>
+        <Grid2 item xs={6}>
           <FormControlLabel
             control={<Switch checked onChange={() => {}} />}
             label="Detailed Data"
           />
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </div>
   );
 }

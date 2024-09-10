@@ -20,6 +20,8 @@ export default function DataHandlerOutputBox({
     }
     return columns;
   }
+
+  console.log(results)
   
   return (
     <Box sx={{ display: "flex", flex: 1, flexDirection: "column" }}>

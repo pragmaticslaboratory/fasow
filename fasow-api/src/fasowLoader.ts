@@ -2,10 +2,12 @@ import ExperimentAgentCombination from 'src/experiments/ExperimentAgentCombinati
 import ExperimentAgentCombinationBestSeed from 'src/experiments/ExperimentAgentCombinatio/ExperimentAgentCombinationBestSeed';
 import ExampleExperiment from './experiments/ExampleExperiment';
 import TestExperiment from './experiments/TestExperiment/TestExperiment';
+import MessageRepetition from './experiments/ExperimentEffectMessageRepetition/MessageRepetition';
 
 const fasowConfig = [
   ExperimentAgentCombination,
   ExperimentAgentCombinationBestSeed,
+  MessageRepetition,
   ExampleExperiment,
   /** Add your Experiments below **/
   TestExperiment,

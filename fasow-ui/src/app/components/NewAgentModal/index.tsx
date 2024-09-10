@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
+
 import React, { useState } from "react";
 
 import AddIcon from "@mui/icons-material/Add";

@@ -173,6 +173,10 @@ export default class ITowerHandler {
   getSelectedExperiment(): typeof Experiment {
     return this.ExperimentAPI.getSelectedExperiment();
   }
+
+  getSelectedExperimentTypeName(): string {
+    return this.ExperimentAPI.getSelectedExperiment().name;
+  }
 }
 
 // const TowerHandler: ITowerHandler = new ITowerHandler();
