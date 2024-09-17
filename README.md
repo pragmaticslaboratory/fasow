@@ -11,11 +11,13 @@ FASOW is a project that contains two subprojects: `fasow-api` and `fasow-monorep
 
 ## Description
 
-The FASOW project is divided into two main parts:
+The FASOW project is divided into three main parts:
 
 1. **fasow-api:** This folder contains the new version of the FASOW library, which has been refactored and exposed as an HTTP API. This allows the experiments and functionalities of the library to be accessed through HTTP requests.
 
 2. **fasow-monorepo:** This subproject includes the legacy version of the FASOW library along with a client that provides the necessary interface to interact with the experiments. It is useful for maintaining compatibility with previous versions and for users who still rely on the legacy implementation. **The `fasow-monorepo` was developed with Node.js 16 and has been run with Node.js 22, but we are not sure of its correct execution.**
+   
+3. **fasow-ui**: This folder contains the new version of the FASOW UI that works as console to select, initialize and run models implemented on FASOW.
 
 ## Project Structure
 
@@ -94,22 +96,22 @@ by three modules or more.
 
 ![img_1.png](img_1.png)
 
-* MetaLevel Interface: A Metaprogramming interface that exposes the implementation of the base interface. The MetaLevel interface
+* MetaLevel API: A Metaprogramming API that exposes the implementation of the Level interface. The MetaLevel API
   provides methods to managed, define or interact with the instantiation of the particularities of the level on execution time, and provides
-  the capability to register a new particularity component for the level. 
+  the capability to register new extensions for the level. 
 
-* MetaLevel Config: Is a Meta-Configuration object which communicate and connect the MetaLevel Interface with the BaseLevel Interface.
-  This objects had certain information that is required to pass through the particularity constructor when we will instantiate them
+* MetaLevel: Is a Configuration object which communicate and connect the MetaLevelAPI with the Level Interface.
+  This objects had certain information that is required to pass through the Level constructor when we will instantiate them
   on execution time.
 
-* BaseLevel Interface: A Base Interface, that can be abstract or not, but that defines the base functionality for the level, 
-  this interface is the entity that the MetaLevel Interface will  instantiate on execution time.
+* Level Interface: The core module of the level, that can be abstract or not, but that defines the base functionality for the level, 
+  this interface is the entity that the MetaLevel Interface will instantiate on execution time.
 
-* ParticularityLevel Modules: These modules are entities that extends the functionality that provides the base level interface, 
+* Extensions Level Modules: These modules are entities that extends the functionality that provides the level interface, 
   and allows to users to implements other requirements that cant be provided by the base level interface.
 
 by this way, and by adding levels with less particularity knowledge we can start to see the Reflection Tower!
-which connect and centralize all MetaInterfaces on the TowerHandler.
+which connect and centralize all MetaInterfaces on the TowerHandler by the use of the Facade Pattern.
 
 ![img_2.png](img_2.png)
 
