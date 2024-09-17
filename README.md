@@ -79,8 +79,71 @@ a way to implement and create a simulation of an Agent Based model of a Word of 
 Network Site (SNS), managing a flexible architecture easy to learn (easy to reach more users?) and an output generator.
 
 ![img_6.png](img_6.png)
+# Experiment ? This could be Calibration too ? instead of experiment? I think no, because the experiment is a selected ABM model in this case.
+
+This experiment represent a selected Agent-Based model on FASOW where we can change them, by selecting other one, initialize them to prepare FASOW to start a simulation by instantiating the required entities on the model, running it by their execution and finally get the output of each iteration and repetition time of the simulation to get the result of the simulation.
+
+// This both modules interact laterally with the Experiment by interacting with the selected experiment on execution time, the datahandler is notified by each time on the simulation of the selected model by the use of the observer pattern, and the TowerHandler using the idea of the reflection tower allows to instantiate the required extensions of the selected model.   
+
 # DataHandler
+
+The DataHandler modules uses the observer pattern that where agents, environments, and experiments notifies and updates the datahandler each time where a tick or a repetition happen. So the DataHandler, that had a list of the references of all the instances of the classes that had decorated his attributs with a DataHandler decorator like: 
+
+```typescript
+//Todo: Agregar ejemplos de los diferentes decoradores de atributos que existen disponibles en fasow.
+
+/**
+ * For each tick of the clock, it counts all the agents that have the decorated property,
+ * to later display it in the output on the column with name @name. Users could count
+ * false or true values according to the value of countFalse.
+ *
+ * @param name : string : The column name of the property being registered
+ * @param countFalse : boolean : specify if the count was being to true or false values.
+ *    If countFalse = true, agents with a false value will be counted
+ *    If countFalse = false, agents with a true value will be counted
+ */
+export function AgentCountBoolean(name: string, countFalse: boolean);
+
+/**
+ * For each period, it counts all the agents whose agent.state is equal to the
+ * value entered and then displays a column with the name @name in the output.
+ *
+ * @param name : string : The column name of the property being registered
+ * @param value : number : The value that is registered as possible agent status and that will be used
+ * to count the agents that have this value as status.
+ */
+export function AgentStateIntegerCount(name: string, value: number);
+
+/**
+ * For each period, add the values of each agent that have this property, to then display a column named @name in the output.
+ * @param name : string : The column name of the property being registered.
+ */
+export function AccumulateAgentValue(name: string);
+
+/**
+ * For each period, it adds the old values with the current value of the property for the corresponding period, to then display a column named @name in the output.
+ * @param name : string : The column name of the property being registered.
+ */
+export function AccumulateEnvironmentValue(name: string);
+
+/**
+ * For each period it records the marked parameter, and then it is recorded in the output in a column named @name
+ * @param name : string : The column name of the property being registered.
+ */
+export function EnvironmentCount(name: string);
+
+/**
+ * For each repetition it records the marked parameter, and then it is recorded in the output in a column named @name
+ * @param name : string : The column name of the property being registered.
+ */
+export function ExperimentCount(name: string);
+```
+
 # TowerHandler
+
+The TowerHandler is a module that allows us to encapsulate and expose the implementation of certains ABMs concerns on FASOW, by this way we can handle and manages how a class will be instatiated on execution time. Also This is module uses a Facade pattern of a more complex system of levels where each level handles a specific concern this is called the ´Reflective Tower´
+
+//Esta parte se puede mejorar caleta pero ya es tarde hay que momir.
 
 ## Reflective Tower 
 
