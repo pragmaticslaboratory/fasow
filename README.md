@@ -157,7 +157,7 @@ the Agent Based Models.
 A level in FASOW is an abstraction that handles a specific concern of the ABMs and is composed principally
 by three modules or more.
 
-![img_1.png](img_1.png)
+![image](https://github.com/user-attachments/assets/35cbe9f6-96a8-4cbf-a394-c21c3a28bb96)
 
 * MetaLevel API: A Metaprogramming API that exposes the implementation of the Level interface. The MetaLevel API
   provides methods to managed, define or interact with the instantiation of the particularities of the level on execution time, and provides
@@ -176,7 +176,7 @@ by three modules or more.
 by this way, and by adding levels with less particularity knowledge we can start to see the Reflection Tower!
 which connect and centralize all MetaInterfaces on the TowerHandler by the use of the Facade Pattern.
 
-![img_2.png](img_2.png)
+![image](https://github.com/user-attachments/assets/03f4a3fb-2744-4cb0-9337-a43f91e6e236)
 
 ### 1. Calibration Level
 
