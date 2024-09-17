@@ -241,18 +241,50 @@ export default interface EnvironmentAPI {
 ```
 
 ### 3. Agent Level
+//Todo: Describe the level as a general way, then describe the Abstract Class, The MetaConfig, and the MetaAPI
 
-The experiment layer manage the `experiments`
+The Agent level manage the `Agents` which are the abstraction of the users of a SNS, and allow us to create new
+types of agents and defining specific behaviors that they can do on the simulation, also Agents are connected with 
+other Agents that they can follow, connect or subscribe to catch up some information that the other Agents
+shares with his connections.
+
+The `Agents` being the abstraction of a user of an SNS, that had followers and following, creates connections
+with other Agents, like a subscription, to are be available to send and receive messages. Thus, way agents
+have states, that are determined  by some event, behavior o Action related with this communication process 
+where they can READ a message, SHARE a message, among others... (Read more info in ``WOM Communication Process in FASOW``)
 
 ```typescript
-console.log('Hola mundo')
+export default abstract class Agent implements AgentConfig, IAgentCreator, Observer, Subject {
+  id: number;
+  state?: AgentState | undefined;
+  isSeed: boolean;
+  actions: Action[];
+  followers: Agent[];
+  followings: Agent[];
+  indexMetaAgentConfig: number;
+  
+  abstract step(): void;
+  addFollower(agent: Agent)
+  addFollowing(agent: Agent)
+  removeFollower(agentId: number)
+  removeFollowing(agentId: number)
+  receiveMessage(): void
+  resetState(): void
+  abstract createAgent(id: number, agentData: MetaAgentConfig): Agent;
+  setConfig(id: number, config: MetaAgentConfig): Agent
+  share(): void
+  abstract update(message: any): any;
 ```
+
+#### The Word of Mouth Communication Process in FASOW.
+
 ### 4. Action Level
 
-The experiment layer manage the `experiments`
+The Action level manage the `Actions` that are behaviors that can interact with the Agents, and that can modify their 
+state. Actions 
 
 ```typescript
-console.log('Hola mundo')
+console.log('Hola mundo, accion')
 ```
 
 ## The FASOW Tower
@@ -308,9 +340,9 @@ const fasowConfig = [
 export default fasowConfig;
 ```
 
-### Extending Experiment Layer.
-### Extending Agent Layer.
-### Extending Environment Layer.
+### Extending The Experiment Level.
+### Extending The Agent Level.
+### Extending The Environment Level.
 
 ### Extending Action Layer.
 By extending the funtionality of the action layers we can add new behaviors to handle how to send, receive
@@ -356,3 +388,4 @@ class ExampleExperiment extends Experiment {
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
