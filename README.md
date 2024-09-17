@@ -115,14 +115,14 @@ which connect and centralize all MetaInterfaces on the TowerHandler by the use o
 
 ![img_2.png](img_2.png)
 
-### 1.Experiment Level
+### 1. Calibration Level
 
-The experiment level manage the `experiments` on FASOW, and represents the model to study, implement and simulate, 
+The Calibration level manage the `experiments` on FASOW, that represents the model to study, implement and simulate, 
 this level is composed by the `ExperimentAPI`, the `MetaExperimentConfig` and the Abstract `Experiment` class 
 with his extended particularities modules.
 
 The `Experiments` allow us to introduce the input the model and define strategy to follow during the simulation
-on FASOW, however, to do that as previous step we need to register all modules that will being used on the simulation by using the use of the TowerHandle.
+on FASOW, however, to do that as previous step we need to register all modules that will being used on the simulation by the use of the TowerHandle.
 ```typescript
 
 abstract class Experiment {
@@ -250,10 +250,8 @@ types of agents and defining specific behaviors that they can do on the simulati
 other Agents that they can follow, connect or subscribe to catch up some information that the other Agents
 shares with his connections.
 
-The `Agents` being the abstraction of a user of an SNS, that had followers and following, creates connections
-with other Agents, like a subscription, to are be available to send and receive messages. Thus, way agents
-have states, that are determined  by some event, behavior o Action related with this communication process 
-where they can READ a message, SHARE a message, among others... (Read more info in ``WOM Communication Process in FASOW``)
+The `Agents` being the abstraction of a user of a SNS, can have followers and followings, creating connections
+with other Agents, and making like a subscription with this agents, to are be available to send and receive the messages that they publish on the Network. Thus, way agents have states that are determined by some event, behavior o Action related with the Word of Mouth (WOM) communication process where they can READ a message or SHARE a message, among others... (Read more info in ``WOM Communication Process in FASOW``)
 
 ```typescript
 export default abstract class Agent implements AgentConfig, IAgentCreator, Observer, Subject {
@@ -278,15 +276,65 @@ export default abstract class Agent implements AgentConfig, IAgentCreator, Obser
   abstract update(message: any): any;
 ```
 
-#### The Word of Mouth Communication Process in FASOW.
-
 ### 4. Action Level
 
-The Action level manage the `Actions` that are behaviors that can interact with the Agents, and that can modify their 
-state. Actions 
+The Action level manage the `Actions` that are behaviors that the Agents can do or not. Actions are fundamentals on the FASOW Comunication Process, because they give us the the capability to define a behavior that can modify the state of the agent that execute them and the other agents that are connected with the executor. 
+
+We have two principal actions The READ and The SHARE action, that are logically the same, an event that depends of the state of the executor agent and an probability to happen or not. By this way we can define differents types of actions to define behaviors that addapts to our needs, to modify our agent or others.
 
 ```typescript
-console.log('Hola mundo, accion')
+export default class ActionRead extends Action {
+  execute(agent: Agent): void {
+    const aux: TwitterAgent = <TwitterAgent>agent;
+    if (aux.state === AgentState.NOT_READ) {
+      const p1: number = this.getRandom();
+      if (p1 > 100 - this.probability) {
+        aux.state = AgentState.READ;
+      }
+    }
+  }
+}
+
+export default class ActionShare extends Action {
+  execute(agent: Agent): void {
+    const aux: TwitterAgent = <TwitterAgent>agent;
+    if (aux.state === AgentState.READ) {
+      const p1: number = this.getRandom();
+      if (p1 > 100 - this.probability) {
+        aux.state = AgentState.READY_TO_SHARE;
+      }
+    }
+  }
+}
+```
+
+#### The Word of Mouth Communication Process in FASOW.
+
+TODO: Explain this, the fasow agent states and the relation ship with the actions.
+
+The WOM communication process in FASOW depends of the Actions and the state of the Agents, that are the following:
+
+- NOT_READ: Indicates that the agent no have read some message and are beable to receive a message and read one.
+- READ: Indicates that the agent already have read some message and thats it and now are beable to decide if SHARE or not with other the message.
+- READY_TO_SHARE: Indicates that the Agent take the decision to share the message with their followers.
+- SHARED: Indicates that the agent already shared a message with their followers.
+
+With the use of this states we MAP the bassically functionality of a WOM communication process, to get a message, thinking about them, make the decision to share, and share them and by this way we can handle what an agent can do before, during and after they communicate information.
+
+```typescript
+/**
+ * Enumeration of the most simply states of an Agent in a WOM communication process.
+ * NOT_READ = 0,
+ * READ = 1,
+ * READY_TO_SHARE = 2,
+ * SHARED = 3
+ */
+export enum AgentState {
+  NOT_READ,
+  READ,
+  READY_TO_SHARE,
+  SHARED,
+}
 ```
 
 ## The FASOW Tower
