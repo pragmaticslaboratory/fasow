@@ -60,10 +60,13 @@ export default class ExperimentAgentCombinationBestSeed extends Experiment {
   }
 
   Strategy(): void {
+    // Registration of the used components.
     FASOW.TowerHandler.registerNewAgent(TwitterAgent);
     FASOW.TowerHandler.registerNewAction(ActionRead);
     FASOW.TowerHandler.registerNewAction(ActionShare);
     FASOW.TowerHandler.registerNewEnvironment(EnvironmentTwitter);
+
+    // Defining The MetaExperimentConfiguration.
     const nonSeedConfig: MetaAgentConfig = {
       id: 0,
       name: 'average',
@@ -94,7 +97,7 @@ export default class ExperimentAgentCombinationBestSeed extends Experiment {
       environmentType: EnvironmentTwitter,
       metaAgentsConfigs: [nonSeedConfig, seedConfig],
     });
-    FASOW.TimeKeeper.setMaxRepetition(2);
+    this.setMaxRepetition(2);
   }
 
   createExperiment(): Experiment {

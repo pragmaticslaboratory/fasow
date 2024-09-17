@@ -1,5 +1,5 @@
 import Agent from '../abm/Agent';
-import Experiment from '../abm/Experiment';
+
 import {
   AccumAgentKeysArray,
   CountAgentStatesObjectKeysArray,
@@ -43,7 +43,7 @@ import FASOW from '../FASOW';
  *
  */
 export default class IDataHandler {
-  experiment: Experiment | any;
+  // experiment: Experiment;
   finalOutput: any[] = [];
 
   /**
@@ -94,8 +94,8 @@ export default class IDataHandler {
    * @private this method is called by the update.
    */
   private writeLine() {
-    const repetition = FASOW.TimeKeeper.getRepetition();
-    const tick = FASOW.TimeKeeper.getTick();
+    const repetition = FASOW.experiment.getRepetition();
+    const tick = FASOW.experiment.simulation.environment.getTick();
     const finalRow = { repetition, tick };
 
     // Experiments Row Data
@@ -125,11 +125,11 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateEnvironmentAccum(): any {
-    const envi = this.experiment.simulation.environment;
+    const envi = FASOW.experiment.simulation.environment;
     const row = {};
     AccumEnvironmentObjectKeys.forEach((item) => {
       let oldValue = 0;
-      if (FASOW.TimeKeeper.getTick() > 0) {
+      if (envi.getTick() > 0) {
         const toOut = this.finalOutput[this.finalOutput.length - 1];
         oldValue = Reflect.get(toOut, item.propertyKey);
       }
@@ -145,7 +145,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateEnvironmentCounts(): any {
-    const envi = this.experiment.simulation.environment;
+    const envi = FASOW.experiment.simulation.environment;
     const row = {};
     CountEnvironmentKeys.forEach((item) => {
       if (item.target.constructor.name === envi.constructor.name) {
@@ -163,8 +163,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateAgentStateIntegerCounts(): any {
-    const exp: Experiment = this.experiment;
-    const { agents } = exp.simulation.environment;
+    const { agents } = FASOW.experiment.simulation.environment;
     const row = {};
     CountAgentStatesObjectKeysArray.forEach((item) => {
       let countVar = 0;
@@ -183,12 +182,11 @@ export default class IDataHandler {
    * @private this method is called on writeLine method
    */
   private calculateExperimentCounts(): any {
-    const exp: Experiment = this.experiment;
     const row = {};
     CountExperimentsKeys.forEach((item) => {
-      if (item.target.constructor.name === exp.constructor.name) {
+      if (item.target.constructor.name === FASOW.experiment.constructor.name) {
         const key = item.propertyKey;
-        const value = Reflect.get(exp, key);
+        const value = Reflect.get(FASOW.experiment, key);
         Reflect.set(row, item.column_name, value);
       }
     });
@@ -200,7 +198,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateAgentBooleanCounts(): any {
-    const { agents } = this.experiment.simulation.environment;
+    const { agents } = FASOW.experiment.simulation.environment;
     const row = {};
     CountAgentBooleanObjectKeysArray.forEach((item) => {
       let counter = 0;
@@ -230,7 +228,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateAgentAccum() {
-    const { agents } = this.experiment.simulation.environment;
+    const { agents } = FASOW.experiment.simulation.environment;
     const row = {};
     AccumAgentKeysArray.forEach((item) => {
       let sum = 0;
@@ -288,7 +286,7 @@ export default class IDataHandler {
   getState(): any {
     return {
       state: {
-        selectedExperiment: FASOW.TowerHandler.getSelectedExperiment(),
+        selectedExperiment: FASOW.TowerHandler.getSelectedExperimentTypeName(),
         actions: FASOW.TowerHandler.getActionAPIState(),
         agents: FASOW.TowerHandler.getAgentAPIState(),
         environments: FASOW.TowerHandler.getEnvironmentAPIState(),

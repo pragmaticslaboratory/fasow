@@ -72,7 +72,6 @@ export default class ExampleExperiment extends Experiment {
     FASOW.TowerHandler.setExperimentDescription('Nothing');
   }
 
-  // eslint-disable-next-line class-methods-use-this
   createExperiment(): Experiment {
     return new ExampleExperiment();
   }

@@ -11,3 +11,4 @@ export enum AgentState {
   READY_TO_SHARE,
   SHARED,
 }
+//tODO: esto posiblemente se debiera cambiar el nombre a WOMAgentStates.

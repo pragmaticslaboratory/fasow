@@ -58,7 +58,7 @@ export default class MessageRepetition extends Experiment {
       maxTick: 40,
       metaAgentsConfigs: [avrAgentConfig, avrAgentConfigSeed],
     });
-    FASOW.TimeKeeper.setMaxRepetition(1);
+    this.setMaxRepetition(1);
   }
 
   createExperiment(): Experiment {

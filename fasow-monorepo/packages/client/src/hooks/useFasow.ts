@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
+
 import { useCallback, useState } from "react";
 
 import { fasowInstance } from "@fasow/backend";

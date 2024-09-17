@@ -92,7 +92,7 @@ export default class ExperimentAgentCombination extends Experiment {
 
   run() {
     for (let i: number = 10; i < 100; i += 10) {
-      FASOW.TimeKeeper.setMaxRepetition(1);
+      this.setMaxRepetition(1);
       const percentageHubOfSeed: number = i;
       const percentageLeaderOfSeed: number = 100 - i;
       console.log('Calculating Percentages of seeds Combinations');
@@ -111,7 +111,7 @@ export default class ExperimentAgentCombination extends Experiment {
       console.log('Finals Agents Percentages: ');
       console.log(this.percentageTypes);
       super.run();
-      FASOW.TimeKeeper.resetRepetitions();
+      this.resetRepetitions();
     }
   }
 
