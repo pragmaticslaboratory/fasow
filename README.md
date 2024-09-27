@@ -154,24 +154,13 @@ export function ExperimentCount(name: string);
 
 # TowerHandler
 
-The TowerHandler is a module that allows us to encapsulate and expose the implementation of certain ABMs concerns of Fasow, 
-by this way we can handle and manages how a class will be instatiated on execution time. This is module uses a Facade 
-pattern of a more complex system of levels where each level handles a specific concern this is called the ´Reflective Tower´
-
-## Reflective Tower 
-
-The idea of the reflection tower is present in programming languages and allow us to segment a 
-software architecture by abstraction levels of different granularity. On this case, the Fasow architecture
-is segmented by 4 levels (Experiment, Environment, Agent and Actions), where each one handles a specific concern of
-the Agent Based Models.
-
-![reflective-tower](resources/reflective_tower.png)
-<p align="center">Reflective Tower</p>
+The TowerHandler is a module that allows us to encapsulate and expose the implementation of certain ABMs concerns of Fasow,
+In this way, we can handle and manage how a class will be instantiated on execution time.
 
 ### Fasow Levels
 
 A level in Fasow is an abstraction that handles a specific concern of the ABMs and is composed principally
-by three modules or more.
+by three modules and extensions modules.
 
 ![fasow-levels](resources/fasow-levels.png)
 <p align="center">Fasow Level X</p>
@@ -190,17 +179,28 @@ by three modules or more.
 * `Level Extensions` Level Modules: These modules are entities that extends the functionality that provides the level interface, 
   and allows to users to implements other requirements that cant be provided by the base level interface.
 
-by this way, and by adding levels with less particularity knowledge we can start to see the Reflection Tower!
-which connect and centralize all MetaInterfaces on the TowerHandler by the use of the Facade Pattern.
+We created fourth fasow levels where each level had less particularity knowledge of the abm concern (or model?), 
+these levels were injecting on the TowerHandler, to facade theirs implementations and centralize the concerns in one class
+by this wey we can start to see the `Reflective Tower`.
+
+#### Reflective Tower
+
+The `Reflective Tower` Is based on the idea of the reflection tower that is present in programming languages and allow us to segment a
+software architecture by abstraction levels of different granularity. On this case, the Fasow architecture
+is segmented by 4 levels (Calibration, Environment, Agent and Actions), where each one handles a specific concern of
+the Agent Based Models.
+
+![reflective-tower](resources/reflective_tower.png)
+<p align="center">Reflective Tower</p>
 
 ### 1. Calibration Level
 
-The Calibration level manage the `experiments` on Fasow, that represents the model to study, implement and simulate, 
-this level is composed by the `ExperimentAPI`, the `MetaExperimentConfig` and the Abstract `Experiment` class 
-with his extended particularities modules.
+The Calibration level manage the `experiments` on Fasow, that represents a model to study, implement and simulate. The level
+is composed by the `ExperimentAPI`, the `MetaExperimentConfig` and the Abstract `Experiment` class with his extended particularities modules.
 
-The `Experiments` allow us to introduce the input the model and define strategy to follow during the simulation
-on Fasow, however, to do that as previous step we need to register all modules that will being used on the simulation by the use of the TowerHandle.
+The `Experiments` allow us to introduce the input of the model and define a strategy to follow during the simulation, but,
+before, we need to register all the modules that will require on the simulation by the use of the TowerHandle.
+
 ```typescript
 
 abstract class Experiment {
@@ -216,12 +216,14 @@ abstract class Experiment {
   //..getters and setters 
 }
 ```
-The `ExperimentAPI` manages the `Experiments` by handling his registration and creation, also allow us to set and change 
+
+
+The `CalibrationAPI` allow us to register, manage and instantiate `Experiments` , also allow us to set and change 
 the configuration on the MetaExperimentConfig, which represents part of the information required to instantiate and 
 initialize the model to run the simulation.
 ```typescript
 
-interface IExperimentAPI {
+interface CalibrationAPI {
   selectExperimentByName(experiment: string): void;
   registerNewExperiment(exp: typeof Experiment): void;
   setExperimentName(name: string): void;
@@ -236,13 +238,13 @@ interface IExperimentAPI {
 }
 ```
 
-The `MetaExperimentConfig` help us to define a name, a description and what to instantiate for the experiment
+The `MetaCalibration` help us to define a name, a description and what to instantiate for the experiment
 to simulate, and  also, we can define a number of times which the simulation will be repeated to handles the
 stochastic effect.
 
 ```typescript
-export default interface MetaExperimentConfig {
-  // Experiment Metadata
+export default interface MetaCalibration {
+  // Calibration Metadata
   readonly id: number;
   name: string;
   description: string;
@@ -255,13 +257,15 @@ export default interface MetaExperimentConfig {
 
 ### 2. Environment Level
 
-The environment level manages the `Environments` which are the abstraction of a Social Network Site (SNS) and the simulation,
-allow us to define and configure the Simulation. This level is composed by the `EnvironmentAPI`, the `MetaEnvironmentConfig`
+The environment level manages the `Environments` which are the abstraction of a Social Network Site (SNS) and the simulation.
+An environment allow us to define and configure a simulation on Fasow. This level is composed by the `EnvironmentAPI`, the `MetaEnvironment`
 and the Abstract `Environment`.
 
 The `Environments` being the abstraction of the simulation and a Social Network Site, enable us to set the size of the
-simulation, the types of Agents to create and his relationships, and the duration of a simulation. Also, provides
-the place to define the behavior that a social network site and his users will follow.
+simulation, the types of Agents to create and his relationships, and the duration of the simulation. Also, provides
+a place to define the behavior of a social network site, his users, his followers and his followings. On the line of 
+the WOM communication process on FASOW, we can have two types of agents, the seeds and the non-seeds, where a seed agent is
+an agent that start the WOM communication process.
 
 ```typescript
 export default abstract class Environment implements EnvironmentConfig, IEnvironmentCreator, Ticks {
@@ -288,7 +292,7 @@ export default abstract class Environment implements EnvironmentConfig, IEnviron
   //...getters and setters
 }
 ```
-The `MetaEnvironmentConfig` establish the configuration of the simulation like the size of agents to create, the duration 
+The `MetaEnvironment` establish the configuration of the simulation like the size of agents to create, the duration 
 of the simulation, the SNS to use and the configuration of the agents to instantiate.
 
 ```typescript
@@ -300,8 +304,8 @@ export default interface MetaEnvironmentConfig {
 }
 ```
 
-The `MetaEnvironmentAPI` manages the registration of the new Environments particularities and the configuration of the
-Environment that will be created on the execution time.
+The `EnvironmentAPI` manages the registration of the new Environments extensions and the configuration of the
+Environment that will be instantiated on the execution time.
 
 ```typescript
 export default interface EnvironmentAPI {
@@ -324,12 +328,53 @@ export default interface EnvironmentAPI {
 //Todo: Describe the level as a general way, then describe the Abstract Class, The MetaConfig, and the MetaAPI
 
 The Agent level manage the `Agents` which are the abstraction of the users of a SNS, and allow us to create new
-types of agents and defining specific behaviors that they can do on the simulation, also Agents are connected with 
+types of agents and defining specific behaviors that they can do on the simulation. Agents are connected with 
 other Agents that they can follow, connect or subscribe to catch up some information that the other Agents
-shares with his connections.
+shares with his connections. By this way the Agent level is composed by `AgentAPI`, the `MetaAgent` and the `abstract Agent`
 
-The `Agents` being the abstraction of a user of a SNS, can have followers and followings, creating connections
-with other Agents, and making like a subscription with this agents, to are be available to send and receive the messages that they publish on the Network. Thus, way agents have states that are determined by some event, behavior o Action related with the Word of Mouth (WOM) communication process where they can READ a message or SHARE a message, among others... (Read more info in ``WOM Communication Process in Fasow``)
+The `AgentAPI` manages the registration of the new Agent extensions, and the correct instantiation of the MetaAgent 
+
+```typescript
+
+export default class AgentAPI {
+  private agentsFactories: Map<string, typeof Agent>;
+  private agentConfigs: MetaAgentConfig[];
+  
+  registerNewAgent(type: typeof Agent);
+  registerNewMetaAgentConfig(agentConfig: MetaAgentConfig);
+  registerMetaConfigs(agentConfigs: MetaAgentConfig[]);
+  generateAgentList(): Agent[];
+  generateAgentsByConfigs(metaConfigs: MetaAgentConfig[]): Agent[];
+  getMetaAgentConfigById(id: number);
+  getState(): any;
+}
+```
+
+`MetaAgent` had the information required to instantiate an Agent on execution time, so had their
+name, the percentage of type of Agents to instantiate that compose the SNS, their initial state, their behavior 
+and if these instances will seed or not.
+
+```typescript
+export default interface MetaAgent {
+// Metadata
+readonly id: number;
+name: string;
+percentage: number;
+followersPercentage: number;
+actionsConfigs: MetaAction[];
+type: typeof Agent;
+// Normal data to create a agentConfig ?
+state?: AgentState;
+isSeed: boolean;
+}
+```
+
+
+The abstract `Agent` is the abstraction of a user of a SNS, can have followers and followings, creating connections
+with other Agents, and making a subscription with these agents, being available to send and receive the messages that they publish on the Network.
+Thus, way agents have states that are determined by some event, behavior o Action related with the Word of Mouth (WOM) communication process
+where they can READ a message or SHARE a message, between others agents ... (Read more info in ``WOM Communication Process in Fasow``)
+
 
 ```typescript
 export default abstract class Agent implements AgentConfig, IAgentCreator, Observer, Subject {
@@ -356,13 +401,159 @@ export default abstract class Agent implements AgentConfig, IAgentCreator, Obser
 
 ### 4. Action Level
 
-The Action level manage the `Actions` that are behaviors that the Agents can do or not. Actions are fundamentals on the Fasow Comunication Process, because they give us the the capability to define a behavior that can modify the state of the agent that execute them and the other agents that are connected with the executor. 
+The Action level manage the `Actions` , that are behaviors that the Agents do or not. 
+Actions are fundamentals on the WOM Communication Process on Fasow, because they give us the capability to define behaviors,
+that can modify the state of the agents. This level is composed by the `ActionAPI`, the `MetaAction` and the abstract `Action`
 
-We have two principal actions The READ and The SHARE action, that are logically the same, an event that depends of the state of the executor agent and an probability to happen or not. By this way we can define differents types of actions to define behaviors that addapts to our needs, to modify our agent or others.
+The `ActionAPI` manage the registration of the new Action extensions and the instantiation of the new Actions, 
+and provides methods to manages the MetaActions.
 
-* `ActionRead`: Check the state of the agent that receives a message, and handles the switch of the state to AgenState.READ if the state of the agent is AgenState.NOT_READ
+```typescript
 
-* `ActionShare`: Check the state of the agent that receives the message and if he had his state as AgentState.READ, indicates that the agent already has executed the ActionRead, and now we can handle how to send a message 
+export default class ActionAPI {
+  // private actionFactories: Map<typeof Action, IActionCreator>;
+  private actionConfigs: MetaActionConfig[];
+  // private actionFactories : typeof Action[];
+  private actionFactories: Map<string, typeof Action>;
+
+  registerNewAction(newActionType: typeof Action)
+  registerMetaActionConfig(actionConfig: MetaActionConfig)
+  private getAction(type: typeof Action): typeof Action
+  generateActionList(): Action[]
+  generateActions(metaConfigs: MetaActionConfig[]): Action[]
+  getMetaConfigs(): MetaActionConfig[]
+  getState(): any
+
+```
+
+the `MetaAction` allows to assign a probability to happen for an Action to instantiate and to identify them.
+
+```typescript
+export default interface MetaActionConfig {
+  readonly id: number;
+  name: string;
+  probability: number;
+  type: typeof Action;
+}
+```
+
+The abstract Action is very simply and uses the inversion of control with the method execute, thus way
+Actions receive the instance of the Agent that execute the action and can interact with the Agent. Also,
+the Action is a representation of the command design pattern where the Agents are the Invokers and the Actions the function to execute!
+
+```typescript
+export default abstract class Action implements ActionConfig, IActionCreator {
+  name: string;
+  probability: number;
+  idMetaActionConfig: number;
+  
+  abstract execute(agent: Agent): void;
+  public getRandom(): number;
+  public setConfig(actionConfig: MetaActionConfig): Action;
+  abstract createAction(actionData: MetaActionConfig): Action;
+  
+}
+```
+
+## The Word of Mouth Communication Process in Fasow.
+
+The WOM communication process in Fasow depends on the interacting of the different components of fasow and by two principally
+types of iterations, the repetitions and the ticks. Where each one manages a different concept of the time.
+
+- Repetitions: Allows us to avoid the stochastic effect by repeating a simulation over and over again to generate different and
+  random outputs to then weighting and standardize them.
+
+- Ticks: Represent a discrete unit of time like one day, one hour, one second, one week, but usually is one day.
+
+### The Fasow Process
+
+![wom-process-in-fasow](resources/wom-process-in-fasow.png)
+<p align="center">Word of mouth communication process on Fasow</p>
+
+With the use of the interaction of the different extensions of fasow,
+we can start to draw a basic flow for their WOM communication process,
+because we define a path to get a message, thinking about them, make the decision to share, and share them with his subscribers.
+As this way we created a method to handle what an agent can do before, during and after they communicate information.
+
+However, we also need to know and understand how this process beginnings, so is:
+
+1. Select an experiment and runit
+2. Initialize the repetitions from zer (0)
+3. Initialize the Calibration of the model by execute his strategy and start to instantiate the Environment, Agent and Action extensions.
+4. Start to iterate through the repetition of the model to avoid the stochastic effect.
+5. Start validation of a correct initialization of the simulation
+6. Run a simulation to iterate through the ticks of the simulation to understand the past of the time 
+7. Executes and applies the social network site logic and the seeds agents sends the first message. 
+8. Executes and applies the user logic to prepare them to receive information.
+9. Executes the Actions of the Agents by handling the reception of a message.
+10. Agents takes the decision to read the message.
+11. Agents takes the decision to share the message
+12. DataHandler is notified of the end of the tick and next tick is assigned 
+13. DataHandler query decorated variables and generate an iteration output row
+14. DataHandler is notified of the end of the repetition, a new iteration output row is created and next repetition is assigned
+15. DataHandler generates the output
+
+<div style="max-height: 200px; overflow-y: auto;">
+
+```
+
+Experiment.Run()
+initializeRepetitions()
+Calibration.initialize():
+Iteration type, Repetition:
+  Simulation.isDone()?
+  if !done:
+    end repetitions;
+  simulation.run():
+  nextRepetition(): // repetitions+=1, and notifies data handler module to start querying the decorated variables.
+  validateCanNextRepetition():
+  initialize the Calibration model:
+
+Calibration.initialize():
+  
+Simulation.isDone():
+  is done is:
+    the agents instances maintain the networkSize;
+    the instances of seed maintain the seedSize;
+    for each agent validate:
+    followers or followings was mutated? from the percentage of the networkSize;
+
+Simulation.run():
+  this.environment.run():
+    Environment.canNextTick(): //Tick iterations
+      Environment.Step(): //And print step data
+        Execute Environment extension.Step():
+          Environment.agents.forEach(agent => agent.step())
+            Agent.Step()
+              Execute Agent extension.Step():
+                Agent.forEach(action => action.execute())
+
+EnvironmentExtension.Step():
+  A way to define the sharing information process of the social network site, the 
+  simples way to define this process is do:
+
+step(): void {
+  this.agents.forEach((agent) => {
+    agent.step();
+  });
+}
+Agent.Step():
+this.agent.Actions.forEach((action) => {
+  action.execute();
+});
+```
+
+</div>
+
+### Actions
+We have two principal actions defined that are part of the WOM communication process of Fasow. The first is The READ action and the SHARE action,
+that are logically the same, events that depends on the states of the agents, and a probability to happen or not. Thus, way we can define
+different types of actions to create behaviors that adapts to our needs,  and modify our `Agents` and the `Environment`.
+
+* `ActionRead`: Check the state of the agent that receives a message, and handles the switch of the state to `AgenState.READ` if the state of the agent is `AgenState.NOT_READ`
+
+* `ActionShare`: Check the state of the agent that receives the message and if he had his state as `AgentState.READ`, indicates that the agent already has executed the `ActionRead`, and now we can handle how to send a message
+
 <div style="max-height: 200px; overflow-y: auto;">
 
 ```typescript
@@ -395,21 +586,11 @@ export default class ActionShare extends Action {
 ```
 </div>
 
-## The Word of Mouth Communication Process in Fasow.
-
-![wom-process-in-fasow](resources/wom-process-in-fasow.png)
-<p align="center">Word of mouth communication process on Fasow</p>
-
-TODO: Explain this, the fasow agent states and the relation ship with the actions.
-
-The WOM communication process in Fasow depends of the Actions and the state of the Agents, that are the following:
-
-- NOT_READ: Indicates that the agent no have read some message and are beable to receive a message and read one.
-- READ: Indicates that the agent already have read some message and thats it and now are beable to decide if SHARE or not with other the message.
+### AgentStates:
+- NOT_READ: Indicates that the agent no have read some message and are be able to receive a message and read one.
+- READ: Indicates that the agent already have read some message and that's it and now are be able to decide if SHARE or not with other the message.
 - READY_TO_SHARE: Indicates that the Agent take the decision to share the message with their followers.
 - SHARED: Indicates that the agent already shared a message with their followers.
-
-With the use of this states we MAP the bassically functionality of a WOM communication process, to get a message, thinking about them, make the decision to share, and share them and by this way we can handle what an agent can do before, during and after they communicate information.
 
 ```typescript
 /**
