@@ -155,7 +155,8 @@ export function ExperimentCount(name: string);
 # TowerHandler
 
 The TowerHandler is a module that allows us to encapsulate and expose the implementation of certain ABMs concerns of Fasow,
-In this way, we can handle and manage how a class will be instantiated on execution time.
+where each concern is managed with a specific abstraction level, that we will name as a Fasow level, where each one of thems
+will be implemented by the TowerHandler. In this way, we can handle and manage how each concern will be instantiated on execution time.
 
 ### Fasow Levels
 
