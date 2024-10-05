@@ -67,6 +67,9 @@ tienen un 25.09% de probabilidades de compartir un mensaje que leyo y tienen un 
 averages(tinene un 19.3% de probabilidades de compartir un mensaje que leyo, y un total del 0.057% de seguidores respecto al total de usuarios de la red social ).
 
 Para continuar previamente definiremos los porcentajes de agentes que se debe tener y que se crearan respecto al total de usuarios de la red social.
+ademas se define y se decora percentageTypes para conocer los % de tipos de agantes que se utilizaran.
+Se marco como un ExperimentCount, por lo que datahandler preguntara el estado de esta variable siempre
+que se le notifique un cambio de iteracion.
 
 ```typescript
 export default class ExperimentAgentCombination extends Experiment {
@@ -75,6 +78,8 @@ export default class ExperimentAgentCombination extends Experiment {
   public finalPercentageHub: number = 2.5;
   public finalPercentageLeader: number = 2.5;
   public seedPercentage: number = 5;
+
+  @ExperimentCount('percentage-type') public percentageTypes: string = '';
 
 }
 ```
@@ -94,6 +99,7 @@ y el estado inicial con el que se quiere que el agente se instancie.
 
 ```typescript
 class ExperimentAgentCombination extends Experiment{
+  
   public static getMetaConfig(
     name: string,
     percentage: number,
