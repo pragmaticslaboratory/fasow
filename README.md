@@ -625,7 +625,7 @@ we can extend the functionality of Fasow by the creation of:
 
 Whichever will be the approach to follow, always we will have to Register this new Behavior on Fasow with the use of the TowerHandler.
 ```typescript
-//..experiments/ExampleExperiment.ts
+//..calibrations/ExampleExperiment.ts
 class ExampleExperiment extends Experiment {
   // ... other logic
   Strategy(): void {
@@ -642,10 +642,10 @@ as the following way:
 
 ```typescript
 //..fasowLoader.ts
-import ExperimentAgentCombination from 'src/experiments/ExperimentAgentCombinatio/ExperimentAgentCombination';
-import ExperimentAgentCombinationBestSeed from 'src/experiments/ExperimentAgentCombinatio/ExperimentAgentCombinationBestSeed';
-import ExampleExperiment from './experiments/ExampleExperiment';
-import TestExperiment from './experiments/TestExperiment/TestExperiment';
+import ExperimentAgentCombination from 'src/calibrations/ExperimentAgentCombinatio/ExperimentAgentCombination';
+import ExperimentAgentCombinationBestSeed from 'src/calibrations/ExperimentAgentCombinatio/ExperimentAgentCombinationBestSeed';
+import ExampleExperiment from './calibrations/ExampleExperiment';
+import TestExperiment from './calibrations/TestExperiment/TestExperiment';
 
 const fasowConfig = [
   ExperimentAgentCombination,

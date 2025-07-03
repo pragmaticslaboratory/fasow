@@ -77,7 +77,7 @@ export default class FASOW {
    *     environments:[
    *         {propertyKey: string, propertyType: boolean|string|number}
    *     ],
-   *     experiments:[
+   *     calibrations:[
    *         {propertyKey: string, propertyType: boolean|string|number}
    *     ],
    *     agent_states:[
@@ -123,7 +123,7 @@ export default class FASOW {
    * Select some experiment by the name.
    * Before selecting some experiment by his name, check if the experiment
    * is registered in fasow. Other way without errors is, only select
-   * experiments by name given by fasow.getState().
+   * calibrations by name given by fasow.getState().
    * @param experiment
    */
   async selectExperimentByName(experiment: string) {
@@ -142,10 +142,10 @@ export default class FASOW {
   }
 
   private privateRunExperiment() {
-    // todo : method to search in experiments array and set the strategy
+    // todo : method to search in calibrations array and set the strategy
     // todo : move this method to other class like FASOW ?
     // todo : maybe we need to move too the method select experiment or maybe allow to call that method from other class like fasow also
-    // todo handle with a trycatch if the experiments is undefined
+    // todo handle with a trycatch if the calibrations is undefined
     this.dataHandler.experiment = this.experiment;
     // exp.executeStrategy();
     // @ts-ignore
