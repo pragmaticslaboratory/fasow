@@ -642,10 +642,10 @@ as the following way:
 
 ```typescript
 //..fasowLoader.ts
-import ExperimentAgentCombination from 'src/calibrations/ExperimentAgentCombinatio/ExperimentAgentCombination';
-import ExperimentAgentCombinationBestSeed from 'src/calibrations/ExperimentAgentCombinatio/ExperimentAgentCombinationBestSeed';
+import ExperimentAgentCombination from 'src/calibrations/CalibrationAgentCombinatio/ExperimentAgentCombination';
+import ExperimentAgentCombinationBestSeed from 'src/calibrations/CalibrationAgentCombinatio/ExperimentAgentCombinationBestSeed';
 import ExampleExperiment from './calibrations/ExampleExperiment';
-import TestExperiment from './calibrations/TestExperiment/TestExperiment';
+import TestExperiment from './calibrations/CalibrationTest/CalibrationTest';
 
 const fasowConfig = [
   ExperimentAgentCombination,

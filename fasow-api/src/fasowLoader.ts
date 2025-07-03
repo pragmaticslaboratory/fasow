@@ -1,8 +1,8 @@
-import ExperimentAgentCombination from 'src/calibrations/ExperimentAgentCombinatio/ExperimentAgentCombination';
-import ExperimentAgentCombinationBestSeed from 'src/calibrations/ExperimentAgentCombinatio/ExperimentAgentCombinationBestSeed';
+import ExperimentAgentCombination from 'src/calibrations/CalibrationAgentCombinatio/ExperimentAgentCombination';
+import ExperimentAgentCombinationBestSeed from 'src/calibrations/CalibrationAgentCombinatio/ExperimentAgentCombinationBestSeed';
 import ExampleExperiment from '././calibrations/ExampleExperiment';
-import TestExperiment from '././calibrations/TestExperiment/TestExperiment';
-import MessageRepetition from '././calibrations/ExperimentEffectMessageRepetition/MessageRepetition';
+import TestExperiment from '././calibrations/./CalibrationTest/TestExperiment';
+import MessageRepetition from '././calibrations/./CalibrationEffectMessageRepetition/MessageRepetition';
 
 const fasowConfig = [
   ExperimentAgentCombination,
