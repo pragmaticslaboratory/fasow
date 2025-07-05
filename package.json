@@ -1,0 +1,7 @@
+{
+  "name": "fasow",
+  "scripts": {
+    "start": "node deploy.js",
+    "build": "cd fasow-ui && npm run build"
+  }
+}

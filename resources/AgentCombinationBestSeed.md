@@ -34,7 +34,7 @@ Este archivo indica como implementar las primeras 3 configuraciones
 Se deben probar tres configuraciones diferentes, una donde los consumidores semillas seran Hub, otra Leader y
 finalmente Average, mientras que el resto de los consumidores seran agentes Average, para esto hay que hacer lo siguiente:
 
-![tabla-conexiones-y-grados-de-influencia-al-rt](resources/follers-and-share-rate-table-agentcombination.png)
+![tabla-conexiones-y-grados-de-influencia-al-rt](follers-and-share-rate-table-agentcombination.png)
 
 En este caso vamos a tener que implementar una simulacion con diferentes tipos de agentes semilla, para eso
 vamos a utilizar algunos de modulos ya cargados en FASOW atraves de Scenarios. Por otro lado para comenzar a implementar
@@ -263,7 +263,7 @@ esta habra sido cargada y disponibilizada por FASOW para su uso en la consola. A
 la estrategia sera ejecutada, y el modelo inicializado, por lo que ya podremos darle a Run para ver sus resultados
 en el output del DataHandler
 
-![fasow-console-select-agentcombination-and-run](resources/fasow-console-select-agentcombination-and-run.png)
+![fasow-console-select-agentcombination-and-run](fasow-console-select-agentcombination-and-run.png)
 
 ## 4. Documentacion de las clases o modulos importados de Scenario
 
