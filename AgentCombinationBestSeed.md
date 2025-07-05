@@ -242,9 +242,9 @@ utilizada directamente desde la consola de fasow-ui.
 para eso vamos a fasowLoader.ts, y configuramos/agregamos nuestra nueva Calibracion a nuestro fasowConfig.
 
 ```typescript
-import ExampleExperiment from './experiments/ExampleExperiment';
-import CalibrationAgentCombination from 'src/experiments/CalibrationAgentCombination/CalibrationAgentCombination';
-import CalibrationAgentCombinationBestSeed from 'src/experiments/CalibrationAgentCombination/CalibrationAgentCombinationBestSeed';
+import ExampleExperiment from './calibrations/ExampleExperiment';
+import CalibrationAgentCombination from 'src/calibrations/CalibrationAgentCombination/CalibrationAgentCombination';
+import CalibrationAgentCombinationBestSeed from 'src/calibrations/CalibrationAgentCombination/CalibrationAgentCombinationBestSeed';
 
 const fasowConfig = [
   ExampleExperiment,
