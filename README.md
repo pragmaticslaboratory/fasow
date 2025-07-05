@@ -8,9 +8,11 @@ Fasow consists of three distinct projects. The `fasow-api` provides a backend im
 - [Description](#description)
 - [Project Structure](#project-structure)
 - [Installation & Usage](#installation)
-- [Fasow Basics: Architecture Design](#fasow-architecture)
+- [Other Models](#Other_models)
 - [License](#license)
+## Other models
 
+## Core Framework Documentation
 ## Description
 
 The Fasow project is divided into three main parts:
@@ -340,19 +342,16 @@ export default fasowConfig;
 ```
 ### 3.3 Open the Web browser and select the created calibration
 
-![Fasow Select Example Calibration](resources/fasow-ui-example-config.png)
-![image](https://github.com/user-attachments/assets/e543cba1-e81d-4c28-9436-b7620ea78565)
+![Fasow Select Example Calibration](https://github.com/user-attachments/assets/e543cba1-e81d-4c28-9436-b7620ea78565)
 
 ### 3.4 Run the simulation
 
-![Fasow UI2](resources/fasow-ui-example-calibration.png)
-![image](https://github.com/user-attachments/assets/44f0e1c2-b99d-4ce7-a2a0-33e8c4358775)
+![Fasow UI run](https://github.com/user-attachments/assets/44f0e1c2-b99d-4ce7-a2a0-33e8c4358775)
 
 
 ### 3.5 View the output.
 
-![Fasow UI](resources/fasow-ui-example-calibration.png)
-![image](https://github.com/user-attachments/assets/f3b26b05-e7be-4ecd-8170-fdb801c27f4e)
+![Fasow UI](https://github.com/user-attachments/assets/f3b26b05-e7be-4ecd-8170-fdb801c27f4e)
 
 ## Other models
 
