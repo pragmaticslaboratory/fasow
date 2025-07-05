@@ -218,13 +218,13 @@ export default fasowConfig;
 ```
 ### 3.3 Open the Web browser and select the created calibration
 
-![Fasow Select Example Calibration](resources/fasow-ui-example-config.png)
+![Fasow Select Example Calibration](fasow-ui-example-config.png)
 
 ### 3.4 Run the simulation
 
-![Fasow UI2](resources/fasow-ui-example-calibration.png)
+![Fasow UI2](fasow-ui-example-calibration.png)
 
 ### 3.5 View the output.
 
-![Fasow UI](resources/fasow-ui-example-calibration.png)
+![Fasow UI](fasow-ui-example-calibration.png)
 
