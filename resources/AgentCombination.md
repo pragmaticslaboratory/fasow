@@ -1,18 +1,18 @@
+# Agent Combination 
 
+For this case, we wanted to answer 2 questions.
 
-Para este caso se queria responder 2 preguntas.
+1.- In a social network, testing a WOM marketing campaign where different combinations of agent types coexist, we need to identify which
+type of agent manages to share or keep the same message alive for a longer time
 
-1.- En una red social, probar una camapania de marketing wom  donde conviven diferentes combinaciones de tipos de agentes, necesitamos identificar cual
-es el el typo de agente que logra compartir o  hacer vivir por mas tiempo el mismo mensaje
+2.- On the other hand, we need to create different simulations that represent different scenarios:
+- One where all agents are average, and another percentage of agents are seeds and hub.
+- One where all agents are average, and another percentage of agents are seeds, and leader.
+- One where all agents are average, and the seeds as well.
+This way we can compare each of the scenarios and see which type of agent is best to start the campaign
 
-2.- Por otro lado necesito, crear diferentes simulaciones, que representen diferentes scenarios:
-    - Una donde todos los agentes sean promedio, y otro porcentaje de agentes sean semillas y hub.
-    - Una donde todos los agentes ean promedio, y otro porcentaje de agentes sean semillas, y leader.
-    - Una donde todos los agentes sean promedio, y las semillas tambien.
-De esta forma comparar cada uno de los scenarios y ver cual tipo de agente es mejor para comenzar la camapania
-
-Para el primer caso, solo se necesito la primera capa Calibration, por lo que se crea un nuevo Experiment (Calibration)
-llamado ExperimentAgentCombination
+For the first case, only the first Calibration layer was needed, so a new Experiment (Calibration)
+called ExperimentAgentCombination is created
 
 ```typescript
 import FASOW from 'src/fasow';
@@ -34,20 +34,19 @@ export default class ExperimentAgentCombination extends Experiment {
 }
 ```
 
-En este caso, lo mas complejo era como definir las configuraciones de los agentes.
+The most complex part was how to define the agent configurations.
 
-Se parte pensando, porque necesito agentes que representen usurios de twitter, y tengan la capacidad de enviar un mensaje.
-Entonces puedo usar al agente Twitter, que ya esta predefindo y es parte de la coleccion de Scenarios, entonces para usar TwitterAgent,
-necesitaremos de EnvironmentTwitter, que tambien existe en Scenarios.
+We start by thinking that we need agents that represent Twitter users and have the ability to send a message.
+So we can use the Twitter agent, which is already predefined and is part of the Scenarios collection, so to use TwitterAgent,
+we'll need EnvironmentTwitter, which also exists in Scenarios.
 
-siguiendo la logica de utilizar un TwitterAgent, tenemos que definir su comportamiento para leer un mensaje y compartirlo
-para eso entonces necesitamos las acciones de leer y compartir, que solo se les indica la probabilidad de ser ejecutadas.
+Following the logic of using a TwitterAgent, we have to define its behavior for reading a message and sharing it.
+For this, we need the read and share actions, which are only indicated by the probability of being executed.
 
-Entonces teniendo agentes y acciones ya previamente existentes, pasamos a solo preocuparnos por armar sus configuraciones
-y pasarle sus parametros correctamente.
+So having previously existing agents and actions, we only need to worry about setting up their configurations
+and passing their parameters correctly.
 
-Por lo tanto ya sabemos las clases que necesitamos, por lo que las registramos con el TowerHandler.
-
+Therefore, we already know the classes we need, so we register them with the TowerHandler.
 ```typescript 
 export default class ExperimentAgentCombination extends Experiment {
   
@@ -61,15 +60,15 @@ export default class ExperimentAgentCombination extends Experiment {
 }
 ```
 
-Entonces ahora nos preocupamos de generar las configuraciones, como queremos combinar la creacion de diferentes tipos de agentes.
-queremos agentes hub(tienen un 19,3% de compartir un mensaje que leyo y tienen un 1.142% del total de la red social como Seguidores), leaders(
-tienen un 25.09% de probabilidades de compartir un mensaje que leyo y tienen un 1.08% del total de la red social como seguidores) and 
-averages(tinene un 19.3% de probabilidades de compartir un mensaje que leyo, y un total del 0.057% de seguidores respecto al total de usuarios de la red social ).
+Now we focus on generating the configurations, as we want to combine the creation of different types of agents.
+We want hub agents (who have a 19.3% chance of sharing a message they read and have 1.142% of the total social network as Followers), leaders
+(who have a 25.09% chance of sharing a message they read and have 1.08% of the total social network as followers) and
+averages (who have a 19.3% chance of sharing a message they read, and a total of 0.057% followers with respect to the total users of the social network).
 
-Para continuar previamente definiremos los porcentajes de agentes que se debe tener y que se crearan respecto al total de usuarios de la red social.
-ademas se define y se decora percentageTypes para conocer los % de tipos de agantes que se utilizaran.
-Se marco como un ExperimentCount, por lo que datahandler preguntara el estado de esta variable siempre
-que se le notifique un cambio de iteracion.
+To continue, we'll first define the percentages of agents that should exist and that will be created with respect to the total social network users.
+Additionally, percentageTypes is defined and decorated to track the % of agent types that will be used.
+It was marked as an ExperimentCount, so datahandler will query the state of this variable whenever
+a change in iteration is notified.
 
 ```typescript
 export default class ExperimentAgentCombination extends Experiment {
@@ -84,18 +83,16 @@ export default class ExperimentAgentCombination extends Experiment {
 }
 ```
 
-Todos los agentes tenian el mismo % de probabilidades de leer o no un mensaje que podria llegar a sus perfiles.
+All agents had the same % probability of reading or not reading a message that could reach their profiles.
 
-por lo que lo importante de getMetaConfig, es almacenar los valores constantes de cada tipo de agente (hub, leader or average)
-y retornar la MetaAgent config de un tipo de agente que se quiere instanciar, por esto es que ademas la funcion
-requiere 
+So the important thing about getMetaConfig is to store the constant values for each type of agent (hub, leader or average)
+and return the MetaAgent config of the type of agent that needs to be instantiated, which is why the function
+also requires:
 
-
-el nombre, del tipo de agente que se quiere la MetaAgentConfig
-el porcentaje de agentes respecto a la red social, de instancias que se quiere crear.
-el indicador `seed` para indicar si sera un agente que comenzara el proceso de comunicacion WOM enviando un mensaje.
-y el estado inicial con el que se quiere que el agente se instancie.
-
+the name of the agent type for which the MetaAgentConfig is wanted
+the percentage of agents relative to the social network, of instances to be created.
+the `seed` indicator to indicate if it will be an agent that will start the WOM communication process by sending a message.
+and the initial state with which the agent should be instantiated.
 
 ```typescript
 class ExperimentAgentCombination extends Experiment{
@@ -176,7 +173,7 @@ class ExperimentAgentCombination extends Experiment{
 
 ```
 
-procedemos a usar esta funcion en la strategy
+We proceed to use this function in the strategy
 
 ```typescript
 const avrConfig: MetaAgentConfig = ExperimentAgentCombination.getMetaConfig(
@@ -214,11 +211,11 @@ FASOW.TowerHandler.setScenarioConfig({
 });
 ```
 
-con eso creamos las MetaAgentCombinations, seteamos el total de agentes de la red
-y el tiempo maximo de la duracion de la simulacion.
+With that we create the MetaAgentCombinations, set the total number of agents in the network
+and the maximum duration time of the simulation.
 
-Por ultimo era necesario sobreescribir el metodo run, para manejar de mejor forma
-el como la simulacion se ejecutara por lo que 
+Finally, it was necessary to override the run method, to better manage
+how the simulation will be executed, so
 
 ```typescript
 export default class ExperimentAgentCombination extends Experiment {
@@ -250,13 +247,12 @@ export default class ExperimentAgentCombination extends Experiment {
 }
 ```
 
-Entonces extendiendo y sobreescribiendo run podemos manejar las repeticiones del experimiento.
+So by extending and overriding run we can manage the experiment repetitions.
 
-vamos a repetir 10 veces, y vamos ir de 10 en 10
-al iniciar una repeticion, seteamos el maximo en 1,
+We will repeat 10 times, and we will go from 10 to 10
+When starting a repetition, we set the maximum to 1,
 
-calculamos los porcentajes de combinacion de hub y leaders, haciendo que el otro 95% sea average
+We calculate the combination percentages of hub and leaders, making the other 95% be average
 
-Y ahora al cambiar entre iteraciones, cambiaremos el porcentaje de tipos de agente hub y leader que se crearan como semillas 
-para ir combinando e iterando sobre los diferentes % de agentes hub y leader, buscando la mejor combinacion.
-
+And now when changing between iterations, we will change the percentage of hub and leader agent types that will be created as seeds
+to combine and iterate over the different % of hub and leader agents, looking for the best combination.
