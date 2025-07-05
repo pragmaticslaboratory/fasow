@@ -7,12 +7,14 @@ Fasow consists of three distinct projects. The `fasow-api` provides a backend im
 
 - [Description](#description)
 - [Project Structure](#project-structure)
-- [Installation & Usage](#installation)
-- [Other Models](#Other_models)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [FASOW Word of Mouth Communication Process](#fasow-word-of-mouth-communication-process)
+- [Creating Your First Simulation](#creating-your-first-simulation)
+- [Other Models](#other-models)
+- [Core Framework Documentation](#core-framework-documentation)
 - [License](#license)
-## Other models
 
-## Core Framework Documentation
 ## Description
 
 The Fasow project is divided into three main parts:
@@ -24,33 +26,33 @@ The Fasow project is divided into three main parts:
 
 ## Project Structure
 
-```plaintext
-Fasow/
+```plaintextFasow/
 │
 ├── fasow-api/                    # New version of the Fasow library exposed as an HTTP API
 │   ├── .eslintrc.js              # ESLint configuration
 │   ├── .prettierrc               # Prettier configuration
-│   ├── fasowLoader.ts            # Main loader script that allows users to register new clases for Fasow
+│   ├── fasowLoader.ts            # Main loader script that registers experiment classes for Fasow
 │   ├── nest-cli.json             # NestJS CLI configuration
 │   ├── package.json              # Project dependencies and scripts
 │   ├── README.md                 # Documentation specific to fasow-api
 │   ├── tsconfig.build.json       # TypeScript configuration for build
 │   ├── tsconfig.json             # General TypeScript configuration
 │   └── src/                      # Source code for the API
+│       ├── main.ts               # Entry point that bootstraps the NestJS application
+│       ├── app.module.ts         # Root module that imports all feature modules
+│       ├── app.controller.ts     # Main application controller with basic routes
+│       ├── app.service.ts        # Main application service with business logic
+│       ├── experiments/          # Directory containing experiment implementations
+│       └── fasow/                # Core Fasow framework implementation
+│           ├── abm/              # Agent-Based Modeling components
+│           │   └── wom/          # Word-of-Mouth specific implementations
+│           └── scenarios/        # Predefined simulation scenarios
 │
 ├── fasow-ui/
 │    │
 │    ├── src/                         # Source code directory
 │    │   └── app/                     # Main application directory
 │    │       ├── components/          # UI components
-│    │       │   ├── HomeBox/         # Home component
-│    │       │   ├── NavBar.tsx       # Navigation bar component
-│    │       │   ├── Console.tsx      # Console interface component
-│    │       │   ├── NewAgentModal/   # Modal for creating new agents
-│    │       │   ├── AgentConfigurationBox/  # Agent configuration component
-│    │       │   ├── DataHandlerOutputBox.tsx  # Output display component
-│    │       │   └── ExperimentConfigurationBox/  # Experiment configuration component
-│    │       │
 │    │       ├── hooks/               # React hooks
 │    │       ├── page.tsx             # Main page component
 │    │       ├── layout.tsx           # Application layout
@@ -68,9 +70,8 @@ Fasow/
 │    └── README.md                    # Documentation specific to fasow-ui
 │
 ├── fasow-monorepo/               # Legacy library and client for experiments
-├── package.json
-└── deploy.js
-
+├── package.json                  # Root package.json with scripts to start both API and UI together
+└── deploy.js                     # Deployment script that launches both fasow-api and fasow-ui in development mode
 ```
 
 ## Installation
