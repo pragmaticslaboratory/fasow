@@ -1,5 +1,5 @@
 import FASOW from '../FASOW';
-import ExperimentConfig from '../config/config/ExperimentConfig';
+import CalibrationConfig from '../config/config/CalibrationConfig';
 import MetaExperimentConfig from '../config/metaconfig/MetaExperimentConfig';
 import Simulation from './Simulation';
 import IExperimentCreator from './interfaces/Experiment/IExperimentCreator';
@@ -11,7 +11,7 @@ import Repetitions from '../timekeeper/Repetitions';
  */
 export default abstract class Calibration
   implements
-    ExperimentConfig,
+    CalibrationConfig,
     IExperimentCreator,
     IExperimentStrategy,
     Repetitions
