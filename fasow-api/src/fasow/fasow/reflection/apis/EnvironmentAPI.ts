@@ -4,13 +4,13 @@ import MetaEnvironmentConfig from '../../config/metaconfig/MetaEnvironmentConfig
 import { getTypesOfObject } from '../StructureHandler';
 
 /*
-Esta capa es el nivel siguiente de Experiment.
+Esta capa es el nivel siguiente de Calibration.
 Dado que esta capa permite configurar escenarios aquí se encuentra una
 colección de configuraciones de agentes, ambientes y acciones predefinidas
 que pueden ser accedidas por la API de la capa. También se pueden configurar
 nuevos escenarios o nuevos ambientes y relacionar a un conjunto de agentes
 con el entorno a simular para lograr esto se utiliza a TowerHandler
-para comunicar los niveles de las capas. De igual forma que en Experiment
+para comunicar los niveles de las capas. De igual forma que en Calibration
 al agregar cambios en la torre de reflexión para agregar nuevas características,
  se deben realizar cambios en este nivel de la torre si el modelo lo requiere.
  */

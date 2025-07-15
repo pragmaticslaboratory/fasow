@@ -122,15 +122,15 @@ export function EnvironmentCount(name: string) {
   };
 }
 
-export const CountExperimentsKeys: CountItem[] = [];
+export const CountCalibrationsKeys: CountItem[] = [];
 
 /**
  * For each repetition it records the marked parameter, and then it is recorded in the output in a column named @name
  * @param name : string : The column name of the property being registered.
  */
-export function ExperimentCount(name: string) {
+export function CalibrationCount(name: string) {
   return function (target: any, propertyKey: string) {
-    CountExperimentsKeys.push({
+    CountCalibrationsKeys.push({
       target,
       propertyKey,
       column_name: name,

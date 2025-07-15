@@ -5,14 +5,14 @@ import ActionRead from 'src/fasow/fasow/abm/wom/custom-actions/ActionRead';
 import ActionShare from 'src/fasow/fasow/abm/wom/custom-actions/ActionShare';
 import MetaActionConfig from 'src/fasow/fasow/config/metaconfig/MetaActionConfig';
 import MetaAgentConfig from 'src/fasow/fasow/config/metaconfig/MetaAgentConfig';
-import { ExperimentCount } from 'src/fasow/fasow/datahandler/decorators/DataHandlerDecorators';
+import { CalibrationCount } from 'src/fasow/fasow/datahandler/decorators/DataHandlerDecorators';
 import EnvironmentTwitter from 'src/fasow/fasow/scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from 'src/fasow/fasow/scenarios/twitter/TwitterAgent';
 
 export default class ExperimentAgentCombinationBestSeed extends Calibration {
   // who is the better seed ?
   // avr --> hub --> leader
-  @ExperimentCount('seed-type')
+  @CalibrationCount('seed-type')
   public seedType: string = 'hub';
   public seedFollowerPercentage: number = 0;
   public nonSeedPercentage = 95;

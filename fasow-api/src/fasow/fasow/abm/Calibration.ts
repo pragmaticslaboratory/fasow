@@ -2,8 +2,8 @@ import FASOW from '../FASOW';
 import CalibrationConfig from '../config/config/CalibrationConfig';
 import MetaCalibrationConfig from '../config/metaconfig/MetaCalibrationConfig';
 import Simulation from './Simulation';
-import ICalibrationCreator from './interfaces/Experiment/ICalibrationCreator';
-import ICalibrationStrategy from './interfaces/Experiment/ICalibrationStrategy';
+import ICalibrationCreator from './interfaces/./Calibration/ICalibrationCreator';
+import ICalibrationStrategy from './interfaces/./Calibration/ICalibrationStrategy';
 import Repetitions from '../timekeeper/Repetitions';
 
 /**

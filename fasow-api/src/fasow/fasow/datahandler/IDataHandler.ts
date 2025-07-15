@@ -6,7 +6,7 @@ import {
   CountEnvironmentKeys,
   CountAgentBooleanObjectKeysArray,
   AccumEnvironmentObjectKeys,
-  CountExperimentsKeys,
+  CountCalibrationsKeys,
 } from './decorators/DataHandlerDecorators';
 import FASOW from '../FASOW';
 
@@ -37,13 +37,13 @@ import FASOW from '../FASOW';
  * @EnvironmentCount(name) : allows to register properties of the environment to be
  * counted and added to the output each time the update is called.
  *
- * @ExperimentCount(name) : allows to register properties of the experiment to be
+ * @CalibrationCount(name) : allows to register properties of the calibration to be
  * counted and added to the output each time the update is called and normally that
  * property is updated for each repetition
  *
  */
 export default class IDataHandler {
-  // experiment: Experiment;
+  // calibration: Calibration;
   finalOutput: any[] = [];
 
   /**
@@ -98,8 +98,8 @@ export default class IDataHandler {
     const tick = FASOW.calibration.simulation.environment.getTick();
     const finalRow = { repetition, tick };
 
-    // Experiments Row Data
-    const experimentCountsRow = this.calculateExperimentCounts();
+    // Calibrations Row Data
+    const calibrationsCountsRow = this.calculateCalibrationCounts();
 
     // Environment Row Data
     const environmentCountsRow = this.calculateEnvironmentCounts();
@@ -110,7 +110,7 @@ export default class IDataHandler {
     const agentBooleanCountsRow = this.calculateAgentBooleanCounts();
     const agentStatesRow = this.calculateAgentStateIntegerCounts();
 
-    IDataHandler.generateRow(finalRow, experimentCountsRow);
+    IDataHandler.generateRow(finalRow, calibrationsCountsRow);
     IDataHandler.generateRow(finalRow, environmentCountsRow);
     IDataHandler.generateRow(finalRow, environmentAccumRow);
     IDataHandler.generateRow(finalRow, agentAccumRow);
@@ -178,12 +178,12 @@ export default class IDataHandler {
   }
 
   /**
-   * Registers the value from some experiment and added that to the output, normally is registered for each repetition
+   * Registers the value from some calibration and added that to the output, normally is registered for each repetition
    * @private this method is called on writeLine method
    */
-  private calculateExperimentCounts(): any {
+  private calculateCalibrationCounts(): any {
     const row = {};
-    CountExperimentsKeys.forEach((item) => {
+    CountCalibrationsKeys.forEach((item) => {
       if (item.target.constructor.name === FASOW.calibration.constructor.name) {
         const key = item.propertyKey;
         const value = Reflect.get(FASOW.calibration, key);
@@ -261,7 +261,7 @@ export default class IDataHandler {
     console.log('Writing File', this.finalOutput); // todo:  move this line
     /*
     fs.writeFileSync(
-      `${this.experiment.name}_output.csv`,
+      `${this.calibration.name}_output.csv`,
       IDataHandler.dumpOutput(this.finalOutput)
     );
     */
@@ -269,7 +269,7 @@ export default class IDataHandler {
   }
 
   /**
-   * Write a CSV file with the output of the Experiment
+   * Write a CSV file with the output of the Calibration
    */
   public writeCSVFile(): void {
     this.writeFileData();
@@ -286,11 +286,11 @@ export default class IDataHandler {
   getState(): any {
     return {
       state: {
-        selectedExperiment: FASOW.TowerHandler.getSelectedCalibrationTypeName(),
+        selectedCalibration: FASOW.TowerHandler.getSelectedCalibrationTypeName(),
         actions: FASOW.TowerHandler.getActionAPIState(),
         agents: FASOW.TowerHandler.getAgentAPIState(),
         environments: FASOW.TowerHandler.getEnvironmentAPIState(),
-        experiments: FASOW.TowerHandler.getCalibrationAPIState(),
+        calibrations: FASOW.TowerHandler.getCalibrationAPIState(),
         agent_states: CountAgentStatesObjectKeysArray,
       },
     };

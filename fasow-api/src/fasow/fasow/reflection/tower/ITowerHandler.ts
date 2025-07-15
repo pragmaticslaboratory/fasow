@@ -112,7 +112,7 @@ export default class ITowerHandler {
 
   /* Scenario API */
 
-  /* Experiment API */
+  /* Calibration API */
 
   setCalibrationName(name: string) {
     this.CalibrationAPI.setCalibrationName(name);

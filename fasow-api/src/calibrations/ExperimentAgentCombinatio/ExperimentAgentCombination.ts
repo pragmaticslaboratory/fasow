@@ -5,7 +5,7 @@ import ActionRead from 'src/fasow/fasow/abm/wom/custom-actions/ActionRead';
 import ActionShare from 'src/fasow/fasow/abm/wom/custom-actions/ActionShare';
 import MetaActionConfig from 'src/fasow/fasow/config/metaconfig/MetaActionConfig';
 import MetaAgentConfig from 'src/fasow/fasow/config/metaconfig/MetaAgentConfig';
-import { ExperimentCount } from 'src/fasow/fasow/datahandler/decorators/DataHandlerDecorators';
+import { CalibrationCount } from 'src/fasow/fasow/datahandler/decorators/DataHandlerDecorators';
 import EnvironmentTwitter from 'src/fasow/fasow/scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from 'src/fasow/fasow/scenarios/twitter/TwitterAgent';
 
@@ -15,7 +15,7 @@ export default class ExperimentAgentCombination extends Calibration {
   public finalPercentageLeader: number = 2.5;
   public seedPercentage: number = 5;
 
-  @ExperimentCount('percentage-type') public percentageTypes: string = '';
+  @CalibrationCount('percentage-type') public percentageTypes: string = '';
 
   public static getMetaConfig(
     name: string,
