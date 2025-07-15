@@ -6,6 +6,6 @@
  * the overwriting of the Strategy @method. Finally, the user only need to
  * call the run @method to configure and run the experiment automatically.
  */
-export default interface IExperimentStrategy {
+export default interface ICalibrationStrategy {
   Strategy(): void;
 }

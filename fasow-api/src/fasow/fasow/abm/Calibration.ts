@@ -3,7 +3,7 @@ import CalibrationConfig from '../config/config/CalibrationConfig';
 import MetaExperimentConfig from '../config/metaconfig/MetaExperimentConfig';
 import Simulation from './Simulation';
 import ICalibrationCreator from './interfaces/Experiment/ICalibrationCreator';
-import IExperimentStrategy from './interfaces/Experiment/IExperimentStrategy';
+import ICalibrationStrategy from './interfaces/Experiment/ICalibrationStrategy';
 import Repetitions from '../timekeeper/Repetitions';
 
 /**
@@ -13,7 +13,7 @@ export default abstract class Calibration
   implements
     CalibrationConfig,
     ICalibrationCreator,
-    IExperimentStrategy,
+    ICalibrationStrategy,
     Repetitions
 {
   name: string;
