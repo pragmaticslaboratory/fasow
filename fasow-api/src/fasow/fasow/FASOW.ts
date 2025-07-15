@@ -1,4 +1,4 @@
-import ExampleExperiment from '../.././calibrations/ExampleExperiment';
+import ExampleCalibration from '../../calibrations/ExampleCalibration';
 import Calibration from './abm/Calibration';
 import ActionRead from './abm/wom/custom-actions/ActionRead';
 import ActionShare from './abm/wom/custom-actions/ActionShare';
@@ -33,7 +33,7 @@ export default class FASOW {
     });
     console.log('FASOW Config Loaded. ', fasowConfig);
 
-    FASOW.TowerHandler.selectCalibrationByName('ExampleExperiment');
+    FASOW.TowerHandler.selectCalibrationByName(ExampleCalibration.name);
     this.initializeSelectedCalibration();
   }
 
@@ -57,7 +57,7 @@ export default class FASOW {
 
   loadCalibrations(): void {
     console.log('Loading Calibrations...');
-    FASOW.TowerHandler.registerNewCalibration(ExampleExperiment);
+    FASOW.TowerHandler.registerNewCalibration(ExampleCalibration);
   }
 
   getDataHandler(): IDataHandler {

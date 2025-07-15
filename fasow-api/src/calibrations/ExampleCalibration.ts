@@ -6,7 +6,7 @@ import ActionShare from '../fasow/fasow/abm/wom/custom-actions/ActionShare';
 import EnvironmentTwitter from '../fasow/fasow/scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from '../fasow/fasow/scenarios/twitter/TwitterAgent';
 
-export default class ExampleExperiment extends Calibration {
+export default class ExampleCalibration extends Calibration {
   // eslint-disable-next-line class-methods-use-this
   Strategy(): void {
     FASOW.TowerHandler.registerNewAgent(TwitterAgent);
@@ -67,12 +67,12 @@ export default class ExampleExperiment extends Calibration {
       environmentType: EnvironmentTwitter,
       metaAgentsConfigs: [agent1, agent2],
     });
-    FASOW.TowerHandler.setCalibrationName('Experiment-Example');
+    FASOW.TowerHandler.setCalibrationName('Calibration-Example');
     FASOW.TowerHandler.setCalibrationMaxRepetitions(2);
     FASOW.TowerHandler.setCalibrationDescription('Nothing');
   }
 
   createCalibration(): Calibration {
-    return new ExampleExperiment();
+    return new ExampleCalibration();
   }
 }

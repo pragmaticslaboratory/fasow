@@ -32,16 +32,16 @@ class TestEnvironment extends EnvironmentTwitter {
    */
 }
 
-class TestExperiment extends Calibration {
+class TestCalibration extends Calibration {
   /**
-   * Strategies on Experiments helps to define the model to implment and to configure
+   * Strategies on Calibrations helps to define the model to implement and to configure
    * all the necessary to execute the simulation. To do this
    * we need to register the components that will being used, and setting the
-   * meta experiment configuration
+   * meta calibration configuration
    */
   Strategy(): void {
     /** Registration of the Components
-     * This process is important to stablish the resources required to run the simulation. And...
+     * This process is important to establish the resources required to run the simulation. And...
      * If we dont do this process, and we use some Class that it's not registered, then FASOW
      * will not recognize our specialized components
      *
@@ -51,7 +51,7 @@ class TestExperiment extends Calibration {
     FASOW.TowerHandler.registerNewAction(ActionShare);
     FASOW.TowerHandler.registerNewEnvironment(EnvironmentTwitter);
 
-    // Defining and setting the Meta Experiment configuration:
+    // Defining and setting the Meta Calibration configuration:
 
     // Seeds are the agents that start the WOM communication process, so we need a configuration for them
     const seedConfig: MetaAgentConfig = {
@@ -117,18 +117,20 @@ class TestExperiment extends Calibration {
      * number of repetitions that we will repeat the simulation for the stochastic effects
      * */
 
-    FASOW.TowerHandler.setCalibrationName('Test Experiment for Documentation '); // Set a name for the implementation
+    FASOW.TowerHandler.setCalibrationName(
+      'Test Calibration for Documentation ',
+    ); // Set a name for the implementation
     FASOW.TowerHandler.setCalibrationDescription(
-      'Test Experiment Description for Documentation, ' +
-        'this is an Experiment created to test the FASOW Arch and to write the FASOW Documentation.',
+      'Test Calibration Description for Documentation, ' +
+        'this is an Calibration created to test the FASOW Arch and to write the FASOW Documentation.',
     ); // Add a description for our model
     FASOW.TowerHandler.setCalibrationMaxRepetitions(2); // Define the repetitions for the stochastic effects
   }
 
   createCalibration(): Calibration {
     //This is caused for the AbstractFactory, idk what to do with this
-    return new TestExperiment();
+    return new TestCalibration();
   }
 }
 
-export default TestExperiment;
+export default TestCalibration;
