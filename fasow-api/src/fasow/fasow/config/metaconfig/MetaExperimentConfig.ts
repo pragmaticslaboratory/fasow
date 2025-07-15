@@ -1,4 +1,4 @@
-import type Experiment from '../../abm/Experiment';
+import type Calibration from '../../abm/Calibration';
 import MetaEnvironmentConfig from './MetaEnvironmentConfig';
 
 export default interface MetaExperimentConfig {
@@ -6,7 +6,7 @@ export default interface MetaExperimentConfig {
   readonly id: number;
   name: string;
   description: string;
-  type: typeof Experiment;
+  type: typeof Calibration;
   maxRepetitions: number;
   // Scenario Metadata
   environmentConfig: MetaEnvironmentConfig;

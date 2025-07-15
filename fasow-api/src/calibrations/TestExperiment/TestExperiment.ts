@@ -1,4 +1,4 @@
-import Experiment from '../../fasow/fasow/abm/Experiment';
+import Calibration from '../../fasow/fasow/abm/Calibration';
 import FASOW from '../../fasow';
 import TwitterAgent from '../../fasow/fasow/scenarios/twitter/TwitterAgent';
 import ActionRead from '../../fasow/fasow/abm/wom/custom-actions/ActionRead';
@@ -32,7 +32,7 @@ class TestEnvironment extends EnvironmentTwitter {
    */
 }
 
-class TestExperiment extends Experiment {
+class TestExperiment extends Calibration {
   /**
    * Strategies on Experiments helps to define the model to implment and to configure
    * all the necessary to execute the simulation. To do this
@@ -125,7 +125,7 @@ class TestExperiment extends Experiment {
     FASOW.TowerHandler.setExperimentMaxRepetitions(2); // Define the repetitions for the stochastic effects
   }
 
-  createExperiment(): Experiment {
+  createExperiment(): Calibration {
     //This is caused for the AbstractFactory, idk what to do with this
     return new TestExperiment();
   }

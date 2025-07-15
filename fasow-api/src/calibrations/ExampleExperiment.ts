@@ -1,12 +1,12 @@
 import FASOW from '../fasow';
-import Experiment from '../fasow/fasow/abm/Experiment';
+import Calibration from '../fasow/fasow/abm/Calibration';
 import { AgentState } from '../fasow/fasow/abm/interfaces/Agent/AgentState';
 import ActionRead from '../fasow/fasow/abm/wom/custom-actions/ActionRead';
 import ActionShare from '../fasow/fasow/abm/wom/custom-actions/ActionShare';
 import EnvironmentTwitter from '../fasow/fasow/scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from '../fasow/fasow/scenarios/twitter/TwitterAgent';
 
-export default class ExampleExperiment extends Experiment {
+export default class ExampleExperiment extends Calibration {
   // eslint-disable-next-line class-methods-use-this
   Strategy(): void {
     FASOW.TowerHandler.registerNewAgent(TwitterAgent);
@@ -72,7 +72,7 @@ export default class ExampleExperiment extends Experiment {
     FASOW.TowerHandler.setExperimentDescription('Nothing');
   }
 
-  createExperiment(): Experiment {
+  createExperiment(): Calibration {
     return new ExampleExperiment();
   }
 }

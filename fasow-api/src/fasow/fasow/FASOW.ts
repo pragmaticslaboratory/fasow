@@ -1,5 +1,5 @@
 import ExampleExperiment from '../.././calibrations/ExampleExperiment';
-import Experiment from './abm/Experiment';
+import Calibration from './abm/Calibration';
 import ActionRead from './abm/wom/custom-actions/ActionRead';
 import ActionShare from './abm/wom/custom-actions/ActionShare';
 import MetaExperimentConfig from './config/metaconfig/MetaExperimentConfig';
@@ -21,7 +21,7 @@ export default class FASOW {
   public static TowerHandler: ITowerHandler = new ITowerHandler();
   // public static TimeKeeper: ITimeKeeper = new ITimeKeeper();
 
-  public static experiment: Experiment | undefined = undefined;
+  public static experiment: Calibration | undefined = undefined;
   constructor() {
     this.loadActions();
     this.loadAgents();
@@ -94,7 +94,7 @@ export default class FASOW {
     return FASOW.DataHandler.getState();
   }
 
-  runExperiment(experiment: typeof Experiment) {
+  runExperiment(experiment: typeof Calibration) {
     FASOW.TowerHandler.selectExperiment(experiment);
     // console.log("Selected Experiment: ", experiment.name);
     this.privateRunExperiment();
@@ -118,9 +118,9 @@ export default class FASOW {
   /**
    * Select experiment by his "class" or "type".
    * This method is usually used for debugging the backend.
-   * @param experiment : Experiment : Some typeof Experiment.
+   * @param experiment : Calibration : Some typeof Experiment.
    */
-  selectExperiment(experiment: typeof Experiment) {
+  selectExperiment(experiment: typeof Calibration) {
     FASOW.TowerHandler.selectExperiment(experiment);
   }
 
@@ -160,9 +160,9 @@ export default class FASOW {
 
   /**
    * Registers a new Experiment, that can be executed after.
-   * @param experiment :  Experiment : The class of the experiment to be registered
+   * @param experiment :  Calibration : The class of the experiment to be registered
    */
-  registerNewExperiment(experiment: typeof Experiment) {
+  registerNewExperiment(experiment: typeof Calibration) {
     FASOW.TowerHandler.registerNewExperiment(experiment);
   }
 
@@ -195,7 +195,7 @@ export default class FASOW {
     return FASOW.DataHandler.getLastOutputRow();
   }
 
-  initializeSelectedExperiment(): Experiment {
+  initializeSelectedExperiment(): Calibration {
     FASOW.experiment = FASOW.TowerHandler.createSelectedExperiment();
     FASOW.experiment.executeStrategy();
     FASOW.experiment.initialize();

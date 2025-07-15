@@ -1,5 +1,5 @@
 import FASOW from 'src/fasow';
-import Experiment from '../../fasow/fasow/abm/Experiment';
+import Calibration from '../../fasow/fasow/abm/Calibration';
 import { AgentState } from '../../fasow/fasow/abm/interfaces/Agent/AgentState';
 import MetaActionConfig from '../../fasow/fasow/config/metaconfig/MetaActionConfig';
 import MetaAgentConfig from '../../fasow/fasow/config/metaconfig/MetaAgentConfig';
@@ -8,7 +8,7 @@ import CanSaturatedActionShare from './CanSaturatedActionShare';
 import EffectAgent from './EffectAgent';
 import EnvironmentEffectTwitter from './EnvironmentEffectTwitter';
 
-export default class MessageRepetition extends Experiment {
+export default class MessageRepetition extends Calibration {
   Strategy(): void {
     FASOW.TowerHandler.registerNewAction(CanSaturatedActionShare);
     FASOW.TowerHandler.registerNewAction(CanSaturatedActionRead);
@@ -61,7 +61,7 @@ export default class MessageRepetition extends Experiment {
     this.setMaxRepetition(1);
   }
 
-  createExperiment(): Experiment {
+  createExperiment(): Calibration {
     return new MessageRepetition();
   }
 }

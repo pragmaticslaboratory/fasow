@@ -1,5 +1,5 @@
 import FASOW from 'src/fasow';
-import Experiment from 'src/fasow/fasow/abm/Experiment';
+import Calibration from 'src/fasow/fasow/abm/Calibration';
 import { AgentState } from 'src/fasow/fasow/abm/interfaces/Agent/AgentState';
 import ActionRead from 'src/fasow/fasow/abm/wom/custom-actions/ActionRead';
 import ActionShare from 'src/fasow/fasow/abm/wom/custom-actions/ActionShare';
@@ -9,7 +9,7 @@ import { ExperimentCount } from 'src/fasow/fasow/datahandler/decorators/DataHand
 import EnvironmentTwitter from 'src/fasow/fasow/scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from 'src/fasow/fasow/scenarios/twitter/TwitterAgent';
 
-export default class ExperimentAgentCombination extends Experiment {
+export default class ExperimentAgentCombination extends Calibration {
   public percentageAvr: number = 95;
   public finalPercentageHub: number = 2.5;
   public finalPercentageLeader: number = 2.5;
@@ -151,7 +151,7 @@ export default class ExperimentAgentCombination extends Experiment {
     });
   }
 
-  createExperiment(): Experiment {
+  createExperiment(): Calibration {
     return new ExperimentAgentCombination();
   }
 }

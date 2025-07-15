@@ -9,7 +9,7 @@ import Repetitions from '../timekeeper/Repetitions';
 /**
  * The Experiment abstract class allow to the user to Implement and Configure an Experiment overriding the Strategy Method
  */
-export default abstract class Experiment
+export default abstract class Calibration
   implements
     ExperimentConfig,
     IExperimentCreator,
@@ -75,7 +75,7 @@ export default abstract class Experiment
     }
   }
 
-  abstract createExperiment(): Experiment;
+  abstract createExperiment(): Calibration;
 
   /**
    * Setting up the ExperimentConfig, creating the simulation

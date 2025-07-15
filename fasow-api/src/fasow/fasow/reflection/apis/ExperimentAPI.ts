@@ -1,4 +1,4 @@
-import Experiment from '../../abm/Experiment';
+import Calibration from '../../abm/Calibration';
 import MetaExperimentConfig from '../../config/metaconfig/MetaExperimentConfig';
 import FASOW from '../../FASOW';
 import { getTypesOfObject } from '../StructureHandler';
@@ -29,8 +29,8 @@ interface IConfigExperimentAPI {
  * haciendo uso del TowerHandler.
  */
 export default class IExperimentAPI {
-  private experimentList: Map<string, typeof Experiment>;
-  private selectedExperiment!: typeof Experiment;
+  private experimentList: Map<string, typeof Calibration>;
+  private selectedExperiment!: typeof Calibration;
 
   private experimentConfig: IConfigExperimentAPI = {
     id: 0,
@@ -40,12 +40,12 @@ export default class IExperimentAPI {
   };
 
   constructor() {
-    this.experimentList = new Map<string, typeof Experiment>();
+    this.experimentList = new Map<string, typeof Calibration>();
   }
 
   /* Strategy Handlers */
 
-  registerNewExperiment(exp: typeof Experiment) {
+  registerNewExperiment(exp: typeof Calibration) {
     // todo : maybe you need to handle what happen if you try to add some experiment and that already has been added
     // if (!this.experimentList.has(exp)) {
     this.experimentList.set(exp.name, exp);
@@ -87,11 +87,11 @@ export default class IExperimentAPI {
     };
   }
 
-  createSelectedExperiment(): Experiment {
+  createSelectedExperiment(): Calibration {
     return Reflect.construct(this.selectedExperiment, []);
   }
 
-  selectExperiment(selected: typeof Experiment) {
+  selectExperiment(selected: typeof Calibration) {
     if (this.experimentList.has(selected.name)) {
       this.selectedExperiment = selected;
       return;
@@ -99,7 +99,7 @@ export default class IExperimentAPI {
     throw Error(`The referenced type '${selected}' not exist in ExperimentAPI`);
   }
 
-  getSelectedExperiment(): typeof Experiment {
+  getSelectedExperiment(): typeof Calibration {
     return this.selectedExperiment;
   }
 

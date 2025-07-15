@@ -1,7 +1,7 @@
 import Action from '../../abm/Action';
 import Agent from '../../abm/Agent';
 import Environment from '../../abm/Environment';
-import Experiment from '../../abm/Experiment';
+import Calibration from '../../abm/Calibration';
 import MetaActionConfig from '../../config/metaconfig/MetaActionConfig';
 import MetaAgentConfig from '../../config/metaconfig/MetaAgentConfig';
 import MetaEnvironmentConfig from '../../config/metaconfig/MetaEnvironmentConfig';
@@ -126,11 +126,11 @@ export default class ITowerHandler {
     this.ExperimentAPI.setExperimentDescription(description);
   }
 
-  registerNewExperiment(experiment: typeof Experiment) {
+  registerNewExperiment(experiment: typeof Calibration) {
     this.ExperimentAPI.registerNewExperiment(experiment);
   }
 
-  selectExperiment(select: typeof Experiment) {
+  selectExperiment(select: typeof Calibration) {
     this.ExperimentAPI.selectExperiment(select);
   }
 
@@ -143,7 +143,7 @@ export default class ITowerHandler {
     return this.ExperimentAPI.createExperiment(type);
   } */
 
-  createSelectedExperiment(): Experiment {
+  createSelectedExperiment(): Calibration {
     return this.ExperimentAPI.createSelectedExperiment();
   }
 
@@ -170,7 +170,7 @@ export default class ITowerHandler {
     return this.ExperimentAPI.getState();
   }
 
-  getSelectedExperiment(): typeof Experiment {
+  getSelectedExperiment(): typeof Calibration {
     return this.ExperimentAPI.getSelectedExperiment();
   }
 
