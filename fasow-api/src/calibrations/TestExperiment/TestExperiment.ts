@@ -125,7 +125,7 @@ class TestExperiment extends Calibration {
     FASOW.TowerHandler.setExperimentMaxRepetitions(2); // Define the repetitions for the stochastic effects
   }
 
-  createExperiment(): Calibration {
+  createCalibration(): Calibration {
     //This is caused for the AbstractFactory, idk what to do with this
     return new TestExperiment();
   }

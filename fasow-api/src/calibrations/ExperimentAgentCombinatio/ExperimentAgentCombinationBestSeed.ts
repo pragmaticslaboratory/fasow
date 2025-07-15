@@ -100,7 +100,7 @@ export default class ExperimentAgentCombinationBestSeed extends Calibration {
     this.setMaxRepetition(2);
   }
 
-  createExperiment(): Calibration {
+  createCalibration(): Calibration {
     return new ExperimentAgentCombinationBestSeed();
   }
 }

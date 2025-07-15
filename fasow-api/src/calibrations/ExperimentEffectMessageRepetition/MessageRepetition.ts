@@ -61,7 +61,7 @@ export default class MessageRepetition extends Calibration {
     this.setMaxRepetition(1);
   }
 
-  createExperiment(): Calibration {
+  createCalibration(): Calibration {
     return new MessageRepetition();
   }
 }

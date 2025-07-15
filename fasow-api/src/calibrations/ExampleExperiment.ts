@@ -72,7 +72,7 @@ export default class ExampleExperiment extends Calibration {
     FASOW.TowerHandler.setExperimentDescription('Nothing');
   }
 
-  createExperiment(): Calibration {
+  createCalibration(): Calibration {
     return new ExampleExperiment();
   }
 }

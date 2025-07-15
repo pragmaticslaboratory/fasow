@@ -151,7 +151,7 @@ export default class ExperimentAgentCombination extends Calibration {
     });
   }
 
-  createExperiment(): Calibration {
+  createCalibration(): Calibration {
     return new ExperimentAgentCombination();
   }
 }

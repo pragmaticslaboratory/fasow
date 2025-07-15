@@ -2,7 +2,7 @@ import FASOW from '../FASOW';
 import CalibrationConfig from '../config/config/CalibrationConfig';
 import MetaExperimentConfig from '../config/metaconfig/MetaExperimentConfig';
 import Simulation from './Simulation';
-import IExperimentCreator from './interfaces/Experiment/IExperimentCreator';
+import ICalibrationCreator from './interfaces/Experiment/ICalibrationCreator';
 import IExperimentStrategy from './interfaces/Experiment/IExperimentStrategy';
 import Repetitions from '../timekeeper/Repetitions';
 
@@ -12,7 +12,7 @@ import Repetitions from '../timekeeper/Repetitions';
 export default abstract class Calibration
   implements
     CalibrationConfig,
-    IExperimentCreator,
+    ICalibrationCreator,
     IExperimentStrategy,
     Repetitions
 {
@@ -75,7 +75,7 @@ export default abstract class Calibration
     }
   }
 
-  abstract createExperiment(): Calibration;
+  abstract createCalibration(): Calibration;
 
   /**
    * Setting up the ExperimentConfig, creating the simulation
