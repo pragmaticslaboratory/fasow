@@ -36,12 +36,12 @@ export default class ExperimentAgentCombination extends Experiment {
 
 The most complex part was how to define the agent configurations.
 
-We start by thinking that we need agents that represent Twitter users and have the ability to send a message.
+We start by thinking that we need agents that represent Twitter users and they have the ability to send a message.
 So we can use the Twitter agent, which is already predefined and is part of the Scenarios collection, so to use TwitterAgent,
 we'll need EnvironmentTwitter, which also exists in Scenarios.
 
 Following the logic of using a TwitterAgent, we have to define its behavior for reading a message and sharing it.
-For this, we need the read and share actions, which are only indicated by the probability of being executed.
+This way, we can use the read and share actions, which are only indicated by the probability of being executed.
 
 So having previously existing agents and actions, we only need to worry about setting up their configurations
 and passing their parameters correctly.
