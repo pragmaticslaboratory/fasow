@@ -68,8 +68,8 @@ export default class ExampleExperiment extends Calibration {
       metaAgentsConfigs: [agent1, agent2],
     });
     FASOW.TowerHandler.setCalibrationName('Experiment-Example');
-    FASOW.TowerHandler.setExperimentMaxRepetitions(2);
-    FASOW.TowerHandler.setExperimentDescription('Nothing');
+    FASOW.TowerHandler.setCalibrationMaxRepetitions(2);
+    FASOW.TowerHandler.setCalibrationDescription('Nothing');
   }
 
   createCalibration(): Calibration {

@@ -118,23 +118,23 @@ export default class ITowerHandler {
     this.ExperimentAPI.setCalibrationName(name);
   }
 
-  setExperimentMaxRepetitions(maxRepetitions: number) {
+  setCalibrationMaxRepetitions(maxRepetitions: number) {
     this.ExperimentAPI.setCalibrationMaxRepetitions(maxRepetitions);
   }
 
-  setExperimentDescription(description: string) {
+  setCalibrationDescription(description: string) {
     this.ExperimentAPI.setCalibrationDescription(description);
   }
 
-  registerNewExperiment(experiment: typeof Calibration) {
-    this.ExperimentAPI.registerNewCalibration(experiment);
+  registerNewCalibration(calibration: typeof Calibration) {
+    this.ExperimentAPI.registerNewCalibration(calibration);
   }
 
-  selectExperiment(select: typeof Calibration) {
+  selectCalibration(select: typeof Calibration) {
     this.ExperimentAPI.selectCalibration(select);
   }
 
-  getExperimentConfig(): MetaCalibrationConfig {
+  getCalibrationConfig(): MetaCalibrationConfig {
     return this.ExperimentAPI.getCalibrationConfig();
   }
 
@@ -143,15 +143,15 @@ export default class ITowerHandler {
     return this.ExperimentAPI.createExperiment(type);
   } */
 
-  createSelectedExperiment(): Calibration {
+  createSelectedCalibration(): Calibration {
     return this.ExperimentAPI.createSelectedCalibration();
   }
 
-  selectExperimentByName(experiment: string) {
-    this.ExperimentAPI.selectCalibrationByName(experiment);
+  selectCalibrationByName(calibration: string) {
+    this.ExperimentAPI.selectCalibrationByName(calibration);
   }
 
-  /* Experiment API */
+  /* Calibration API */
 
   /* FASOW STATE FUNCTIONS */
   getActionAPIState(): any {
@@ -166,15 +166,15 @@ export default class ITowerHandler {
     return this.EnvironmentAPI.getState();
   }
 
-  getExperimentAPIState(): any {
+  getCalibrationAPIState(): any {
     return this.ExperimentAPI.getState();
   }
 
-  getSelectedExperiment(): typeof Calibration {
+  getSelectedCalibration(): typeof Calibration {
     return this.ExperimentAPI.getSelectedCalibration();
   }
 
-  getSelectedExperimentTypeName(): string {
+  getSelectedCalibrationTypeName(): string {
     return this.ExperimentAPI.getSelectedCalibration().name;
   }
 }

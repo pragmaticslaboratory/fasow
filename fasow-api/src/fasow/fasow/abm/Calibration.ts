@@ -93,7 +93,7 @@ export default abstract class Calibration
    */
   loadConfig(): void {
     const config: MetaCalibrationConfig =
-      FASOW.TowerHandler.getExperimentConfig();
+      FASOW.TowerHandler.getCalibrationConfig();
     this.setConfig(config);
   }
 

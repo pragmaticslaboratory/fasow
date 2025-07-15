@@ -49,7 +49,7 @@ export default class MessageRepetition extends Calibration {
     };
 
     FASOW.TowerHandler.setCalibrationName('Effect of Message Repetition');
-    FASOW.TowerHandler.setExperimentDescription(
+    FASOW.TowerHandler.setCalibrationDescription(
       'This experiment is for analyze the effect of message repetition in twitter agents on wom marketing campaings',
     );
     FASOW.TowerHandler.setScenarioConfig({

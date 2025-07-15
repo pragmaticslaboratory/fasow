@@ -29,11 +29,11 @@ export default class FASOW {
     this.loadCalibrations();
 
     fasowConfig.forEach((exp) => {
-      FASOW.TowerHandler.registerNewExperiment(exp);
+      FASOW.TowerHandler.registerNewCalibration(exp);
     });
     console.log('FASOW Config Loaded. ', fasowConfig);
 
-    FASOW.TowerHandler.selectExperimentByName('ExampleExperiment');
+    FASOW.TowerHandler.selectCalibrationByName('ExampleExperiment');
     this.initializeSelectedExperiment();
   }
 
@@ -57,7 +57,7 @@ export default class FASOW {
 
   loadCalibrations(): void {
     console.log('Loading Calibrations...');
-    FASOW.TowerHandler.registerNewExperiment(ExampleExperiment);
+    FASOW.TowerHandler.registerNewCalibration(ExampleExperiment);
   }
 
   getDataHandler(): IDataHandler {
@@ -95,7 +95,7 @@ export default class FASOW {
   }
 
   runExperiment(calibration: typeof Calibration) {
-    FASOW.TowerHandler.selectExperiment(calibration);
+    FASOW.TowerHandler.selectCalibration(calibration);
     // console.log("Selected Calibration: ", calibration.name);
     this.privateRunCalibration();
   }
@@ -110,7 +110,7 @@ export default class FASOW {
    * @param calibration
    */
   runExperimentByName(calibration: string) {
-    FASOW.TowerHandler.selectExperimentByName(calibration);
+    FASOW.TowerHandler.selectCalibrationByName(calibration);
     // console.log("Selected Experiment: ", calibration);
     this.privateRunCalibration();
   }
@@ -121,7 +121,7 @@ export default class FASOW {
    * @param calibration : Calibration : Some typeof Experiment.
    */
   selectExperiment(calibration: typeof Calibration) {
-    FASOW.TowerHandler.selectExperiment(calibration);
+    FASOW.TowerHandler.selectCalibration(calibration);
   }
 
   /**
@@ -132,9 +132,9 @@ export default class FASOW {
    * @param calibration
    */
   selectExperimentByName(calibration: string) {
-    FASOW.TowerHandler.selectExperimentByName(calibration);
+    FASOW.TowerHandler.selectCalibrationByName(calibration);
     FASOW.calibration = this.initializeSelectedExperiment();
-    return FASOW.TowerHandler.getExperimentConfig();
+    return FASOW.TowerHandler.getCalibrationConfig();
   }
 
   /**
@@ -163,7 +163,7 @@ export default class FASOW {
    * @param calibration :  Calibration : The class of the calibration to be registered
    */
   registerNewExperiment(calibration: typeof Calibration) {
-    FASOW.TowerHandler.registerNewExperiment(calibration);
+    FASOW.TowerHandler.registerNewCalibration(calibration);
   }
 
   /**
@@ -196,13 +196,13 @@ export default class FASOW {
   }
 
   initializeSelectedExperiment(): Calibration {
-    FASOW.calibration = FASOW.TowerHandler.createSelectedExperiment();
+    FASOW.calibration = FASOW.TowerHandler.createSelectedCalibration();
     FASOW.calibration.executeStrategy();
     FASOW.calibration.initialize();
     return FASOW.calibration;
   }
 
   getExperimentConfig(): MetaCalibrationConfig {
-    return FASOW.TowerHandler.getExperimentConfig();
+    return FASOW.TowerHandler.getCalibrationConfig();
   }
 }

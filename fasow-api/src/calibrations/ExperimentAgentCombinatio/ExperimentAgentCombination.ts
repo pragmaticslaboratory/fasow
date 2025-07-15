@@ -140,7 +140,7 @@ export default class ExperimentAgentCombination extends Calibration {
         AgentState.READY_TO_SHARE,
       );
     FASOW.TowerHandler.setCalibrationName(`seed-combinations`);
-    FASOW.TowerHandler.setExperimentDescription(
+    FASOW.TowerHandler.setCalibrationDescription(
       'Experiment to analyze what is the best agent combination to get more retweets',
     );
     FASOW.TowerHandler.setScenarioConfig({

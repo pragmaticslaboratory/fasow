@@ -118,11 +118,11 @@ class TestExperiment extends Calibration {
      * */
 
     FASOW.TowerHandler.setCalibrationName('Test Experiment for Documentation '); // Set a name for the implementation
-    FASOW.TowerHandler.setExperimentDescription(
+    FASOW.TowerHandler.setCalibrationDescription(
       'Test Experiment Description for Documentation, ' +
         'this is an Experiment created to test the FASOW Arch and to write the FASOW Documentation.',
     ); // Add a description for our model
-    FASOW.TowerHandler.setExperimentMaxRepetitions(2); // Define the repetitions for the stochastic effects
+    FASOW.TowerHandler.setCalibrationMaxRepetitions(2); // Define the repetitions for the stochastic effects
   }
 
   createCalibration(): Calibration {

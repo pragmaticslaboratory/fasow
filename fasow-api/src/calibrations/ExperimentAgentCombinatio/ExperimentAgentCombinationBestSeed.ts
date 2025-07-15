@@ -90,7 +90,7 @@ export default class ExperimentAgentCombinationBestSeed extends Calibration {
         ExperimentAgentCombinationBestSeed.getActionsConfig('hub'),
     };
     FASOW.TowerHandler.setCalibrationName(`best seed type ?`);
-    FASOW.TowerHandler.setExperimentDescription('Who are the best seed type ?');
+    FASOW.TowerHandler.setCalibrationDescription('Who are the best seed type ?');
     FASOW.TowerHandler.setScenarioConfig({
       networkSize: 1000,
       maxTick: 20,

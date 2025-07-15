@@ -286,11 +286,11 @@ export default class IDataHandler {
   getState(): any {
     return {
       state: {
-        selectedExperiment: FASOW.TowerHandler.getSelectedExperimentTypeName(),
+        selectedExperiment: FASOW.TowerHandler.getSelectedCalibrationTypeName(),
         actions: FASOW.TowerHandler.getActionAPIState(),
         agents: FASOW.TowerHandler.getAgentAPIState(),
         environments: FASOW.TowerHandler.getEnvironmentAPIState(),
-        experiments: FASOW.TowerHandler.getExperimentAPIState(),
+        experiments: FASOW.TowerHandler.getCalibrationAPIState(),
         agent_states: CountAgentStatesObjectKeysArray,
       },
     };
