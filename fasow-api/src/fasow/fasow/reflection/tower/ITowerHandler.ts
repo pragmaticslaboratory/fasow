@@ -9,13 +9,13 @@ import MetaCalibrationConfig from '../../config/metaconfig/MetaCalibrationConfig
 import ActionAPI from '../apis/ActionAPI';
 import AgentAPI from '../apis/AgentAPI';
 import EnvironmentAPI from '../apis/EnvironmentAPI';
-import ExperimentAPI from '../apis/ExperimentAPI';
+import CalibrationAPI from '../apis/CalibrationAPI';
 
 export default class ITowerHandler {
   private ActionAPI: ActionAPI = new ActionAPI();
   private AgentAPI: AgentAPI = new AgentAPI();
   private EnvironmentAPI: EnvironmentAPI = new EnvironmentAPI();
-  private ExperimentAPI: ExperimentAPI = new ExperimentAPI();
+  private CalibrationAPI: CalibrationAPI = new CalibrationAPI();
 
   /* Action API */
 
@@ -115,40 +115,40 @@ export default class ITowerHandler {
   /* Experiment API */
 
   setCalibrationName(name: string) {
-    this.ExperimentAPI.setCalibrationName(name);
+    this.CalibrationAPI.setCalibrationName(name);
   }
 
   setCalibrationMaxRepetitions(maxRepetitions: number) {
-    this.ExperimentAPI.setCalibrationMaxRepetitions(maxRepetitions);
+    this.CalibrationAPI.setCalibrationMaxRepetitions(maxRepetitions);
   }
 
   setCalibrationDescription(description: string) {
-    this.ExperimentAPI.setCalibrationDescription(description);
+    this.CalibrationAPI.setCalibrationDescription(description);
   }
 
   registerNewCalibration(calibration: typeof Calibration) {
-    this.ExperimentAPI.registerNewCalibration(calibration);
+    this.CalibrationAPI.registerNewCalibration(calibration);
   }
 
   selectCalibration(select: typeof Calibration) {
-    this.ExperimentAPI.selectCalibration(select);
+    this.CalibrationAPI.selectCalibration(select);
   }
 
   getCalibrationConfig(): MetaCalibrationConfig {
-    return this.ExperimentAPI.getCalibrationConfig();
+    return this.CalibrationAPI.getCalibrationConfig();
   }
 
   /*
-  createExperiment(type: typeof Experiment): Experiment {
-    return this.ExperimentAPI.createExperiment(type);
+  createCalibration(type: typeof Calibration): CalibrationAPI {
+    return this.CalibrationAPI.createCalibration(type);
   } */
 
   createSelectedCalibration(): Calibration {
-    return this.ExperimentAPI.createSelectedCalibration();
+    return this.CalibrationAPI.createSelectedCalibration();
   }
 
   selectCalibrationByName(calibration: string) {
-    this.ExperimentAPI.selectCalibrationByName(calibration);
+    this.CalibrationAPI.selectCalibrationByName(calibration);
   }
 
   /* Calibration API */
@@ -167,15 +167,15 @@ export default class ITowerHandler {
   }
 
   getCalibrationAPIState(): any {
-    return this.ExperimentAPI.getState();
+    return this.CalibrationAPI.getState();
   }
 
   getSelectedCalibration(): typeof Calibration {
-    return this.ExperimentAPI.getSelectedCalibration();
+    return this.CalibrationAPI.getSelectedCalibration();
   }
 
   getSelectedCalibrationTypeName(): string {
-    return this.ExperimentAPI.getSelectedCalibration().name;
+    return this.CalibrationAPI.getSelectedCalibration().name;
   }
 }
 

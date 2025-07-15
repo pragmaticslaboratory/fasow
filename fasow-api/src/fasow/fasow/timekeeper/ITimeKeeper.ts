@@ -72,15 +72,15 @@ export default class ITimeKeeper {
   }
 
   /**
-   * Allows to set the repetition of the Experiment, this will hardly be called
-   * @param repetition : number : The number that indicate the actual repetition of the experiment
+   * Allows to set the repetition of the Calibration, this will hardly be called
+   * @param repetition : number : The number that indicate the actual repetition of the calibration
    */
   setRepetition(repetition: number) {
     this.repetition = repetition;
   }
 
   /**
-   * Return the Repetition of the Experiment
+   * Return the Repetition of the Calibration
    */
   getRepetition(): number {
     return this.repetition;
@@ -103,14 +103,14 @@ export default class ITimeKeeper {
 
   /**
    * Allows to set the max repetitions
-   * @param maxRepetitions : number : The quantity of repetitions to execute the Experiment
+   * @param maxRepetitions : number : The quantity of repetitions to execute the Calibration
    */
   setMaxRepetition(maxRepetition: number): void {
     this.maxRepetition = maxRepetition;
   }
 
   /**
-   * Return the max Repetitions to do the Experiment
+   * Return the max Repetitions to do the Calibration
    */
   getMaxRepetition(): number {
     return this.maxRepetition;
