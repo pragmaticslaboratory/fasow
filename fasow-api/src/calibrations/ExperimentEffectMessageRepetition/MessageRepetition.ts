@@ -48,7 +48,7 @@ export default class MessageRepetition extends Calibration {
       state: AgentState.READY_TO_SHARE,
     };
 
-    FASOW.TowerHandler.setExperimentName('Effect of Message Repetition');
+    FASOW.TowerHandler.setCalibrationName('Effect of Message Repetition');
     FASOW.TowerHandler.setExperimentDescription(
       'This experiment is for analyze the effect of message repetition in twitter agents on wom marketing campaings',
     );

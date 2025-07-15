@@ -117,7 +117,7 @@ class TestExperiment extends Calibration {
      * number of repetitions that we will repeat the simulation for the stochastic effects
      * */
 
-    FASOW.TowerHandler.setExperimentName('Test Experiment for Documentation '); // Set a name for the implementation
+    FASOW.TowerHandler.setCalibrationName('Test Experiment for Documentation '); // Set a name for the implementation
     FASOW.TowerHandler.setExperimentDescription(
       'Test Experiment Description for Documentation, ' +
         'this is an Experiment created to test the FASOW Arch and to write the FASOW Documentation.',

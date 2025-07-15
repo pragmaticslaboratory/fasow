@@ -67,7 +67,7 @@ export default class ExampleExperiment extends Calibration {
       environmentType: EnvironmentTwitter,
       metaAgentsConfigs: [agent1, agent2],
     });
-    FASOW.TowerHandler.setExperimentName('Experiment-Example');
+    FASOW.TowerHandler.setCalibrationName('Experiment-Example');
     FASOW.TowerHandler.setExperimentMaxRepetitions(2);
     FASOW.TowerHandler.setExperimentDescription('Nothing');
   }

@@ -114,7 +114,7 @@ export default class ITowerHandler {
 
   /* Experiment API */
 
-  setExperimentName(name: string) {
+  setCalibrationName(name: string) {
     this.ExperimentAPI.setCalibrationName(name);
   }
 
