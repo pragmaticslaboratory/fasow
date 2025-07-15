@@ -2,7 +2,7 @@ import ExperimentAgentCombination from 'src/calibrations/ExperimentAgentCombinat
 import ExperimentAgentCombinationBestSeed from 'src/calibrations/ExperimentAgentCombinatio/ExperimentAgentCombinationBestSeed';
 import ExampleCalibration from './calibrations/ExampleCalibration';
 import TestCalibration from './calibrations/TestCalibration/TestCalibration';
-import MessageRepetition from '././calibrations/ExperimentEffectMessageRepetition/MessageRepetition';
+import MessageRepetition from '././calibrations/././case2/MessageRepetition';
 
 const fasowConfig = [
   ExperimentAgentCombination,
