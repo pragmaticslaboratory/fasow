@@ -17,11 +17,11 @@ export class AppService {
     if (!experimentName) {
       this.runSelectedExperiment();
     }
-    return this.fasowInstance.runExperimentByName(experimentName);
+    return this.fasowInstance.runCalibrationByName(experimentName);
   }
 
   selectExperiment(experimentName: string) {
-    return this.fasowInstance.selectExperimentByName(experimentName);
+    return this.fasowInstance.selectCalibrationByName(experimentName);
   }
 
   runSelectedExperiment() {
@@ -41,10 +41,10 @@ export class AppService {
   }
 
   initializeSelectedExperiment() {
-    return this.fasowInstance.initializeSelectedExperiment();
+    return this.fasowInstance.initializeSelectedCalibration();
   }
 
   getExperimentConfig() {
-    return this.fasowInstance.getExperimentConfig();
+    return this.fasowInstance.getCalibrationConfig();
   }
 }

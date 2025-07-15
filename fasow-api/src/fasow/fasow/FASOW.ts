@@ -34,7 +34,7 @@ export default class FASOW {
     console.log('FASOW Config Loaded. ', fasowConfig);
 
     FASOW.TowerHandler.selectCalibrationByName('ExampleExperiment');
-    this.initializeSelectedExperiment();
+    this.initializeSelectedCalibration();
   }
 
   loadActions(): void {
@@ -94,7 +94,7 @@ export default class FASOW {
     return FASOW.DataHandler.getState();
   }
 
-  runExperiment(calibration: typeof Calibration) {
+  runCalibration(calibration: typeof Calibration) {
     FASOW.TowerHandler.selectCalibration(calibration);
     // console.log("Selected Calibration: ", calibration.name);
     this.privateRunCalibration();
@@ -109,18 +109,18 @@ export default class FASOW {
    * strings given by fasow.getState().
    * @param calibration
    */
-  runExperimentByName(calibration: string) {
+  runCalibrationByName(calibration: string) {
     FASOW.TowerHandler.selectCalibrationByName(calibration);
-    // console.log("Selected Experiment: ", calibration);
+    // console.log("Selected Calibration: ", calibration);
     this.privateRunCalibration();
   }
 
   /**
    * Select calibration by his "class" or "type".
    * This method is usually used for debugging the backend.
-   * @param calibration : Calibration : Some typeof Experiment.
+   * @param calibration : Calibration : Some typeof Calibration.
    */
-  selectExperiment(calibration: typeof Calibration) {
+  selectCalibration(calibration: typeof Calibration) {
     FASOW.TowerHandler.selectCalibration(calibration);
   }
 
@@ -128,12 +128,12 @@ export default class FASOW {
    * Select some calibration by the name.
    * Before selecting some calibration by his name, check if the calibration
    * is registered in fasow. Other way without errors is, only select
-   * experiments by name given by fasow.getState().
+   * calibrations by name given by fasow.getState().
    * @param calibration
    */
-  selectExperimentByName(calibration: string) {
+  selectCalibrationByName(calibration: string) {
     FASOW.TowerHandler.selectCalibrationByName(calibration);
-    FASOW.calibration = this.initializeSelectedExperiment();
+    FASOW.calibration = this.initializeSelectedCalibration();
     return FASOW.TowerHandler.getCalibrationConfig();
   }
 
@@ -148,10 +148,10 @@ export default class FASOW {
   }
 
   private privateRunCalibration() {
-    // todo : method to search in experiments array and set the strategy
+    // todo : method to search in calibrations array and set the strategy
     // todo : move this method to other class like FASOW ?
     // todo : maybe we need to move too the method select calibration or maybe allow to call that method from other class like fasow also
-    // todo handle with a try catch if the experiments is undefined
+    // todo handle with a try catch if the calibrations is undefined
     // FASOW.DataHandler.calibration = FASOW.calibration;
     // exp.executeStrategy();
     FASOW.calibration.run();
@@ -159,10 +159,10 @@ export default class FASOW {
   }
 
   /**
-   * Registers a new Experiment, that can be executed after.
+   * Registers a new Calibration, that can be executed after.
    * @param calibration :  Calibration : The class of the calibration to be registered
    */
-  registerNewExperiment(calibration: typeof Calibration) {
+  registerNewCalibration(calibration: typeof Calibration) {
     FASOW.TowerHandler.registerNewCalibration(calibration);
   }
 
@@ -195,14 +195,14 @@ export default class FASOW {
     return FASOW.DataHandler.getLastOutputRow();
   }
 
-  initializeSelectedExperiment(): Calibration {
+  initializeSelectedCalibration(): Calibration {
     FASOW.calibration = FASOW.TowerHandler.createSelectedCalibration();
     FASOW.calibration.executeStrategy();
     FASOW.calibration.initialize();
     return FASOW.calibration;
   }
 
-  getExperimentConfig(): MetaCalibrationConfig {
+  getCalibrationConfig(): MetaCalibrationConfig {
     return FASOW.TowerHandler.getCalibrationConfig();
   }
 }
