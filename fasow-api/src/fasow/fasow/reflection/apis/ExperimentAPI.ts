@@ -1,5 +1,5 @@
 import Calibration from '../../abm/Calibration';
-import MetaExperimentConfig from '../../config/metaconfig/MetaExperimentConfig';
+import MetaCalibrationConfig from '../../config/metaconfig/MetaCalibrationConfig';
 import FASOW from '../../FASOW';
 import { getTypesOfObject } from '../StructureHandler';
 
@@ -76,7 +76,7 @@ export default class IExperimentAPI {
 
   /* Configure Experiment */
 
-  getExperimentConfig(): MetaExperimentConfig {
+  getExperimentConfig(): MetaCalibrationConfig {
     return {
       id: this.experimentConfig.id,
       name: this.experimentConfig.name,

@@ -2,7 +2,7 @@ import ExampleExperiment from '../.././calibrations/ExampleExperiment';
 import Calibration from './abm/Calibration';
 import ActionRead from './abm/wom/custom-actions/ActionRead';
 import ActionShare from './abm/wom/custom-actions/ActionShare';
-import MetaExperimentConfig from './config/metaconfig/MetaExperimentConfig';
+import MetaCalibrationConfig from './config/metaconfig/MetaCalibrationConfig';
 import IDataHandler from './datahandler/IDataHandler';
 import ITowerHandler from './reflection/tower/ITowerHandler';
 import FacebookAgent from './scenarios/facebook/FacebookAgent';
@@ -202,7 +202,7 @@ export default class FASOW {
     return FASOW.experiment;
   }
 
-  getExperimentConfig(): MetaExperimentConfig {
+  getExperimentConfig(): MetaCalibrationConfig {
     return FASOW.TowerHandler.getExperimentConfig();
   }
 }

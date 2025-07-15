@@ -5,7 +5,7 @@ import Calibration from '../../abm/Calibration';
 import MetaActionConfig from '../../config/metaconfig/MetaActionConfig';
 import MetaAgentConfig from '../../config/metaconfig/MetaAgentConfig';
 import MetaEnvironmentConfig from '../../config/metaconfig/MetaEnvironmentConfig';
-import MetaExperimentConfig from '../../config/metaconfig/MetaExperimentConfig';
+import MetaCalibrationConfig from '../../config/metaconfig/MetaCalibrationConfig';
 import ActionAPI from '../apis/ActionAPI';
 import AgentAPI from '../apis/AgentAPI';
 import EnvironmentAPI from '../apis/EnvironmentAPI';
@@ -134,7 +134,7 @@ export default class ITowerHandler {
     this.ExperimentAPI.selectExperiment(select);
   }
 
-  getExperimentConfig(): MetaExperimentConfig {
+  getExperimentConfig(): MetaCalibrationConfig {
     return this.ExperimentAPI.getExperimentConfig();
   }
 

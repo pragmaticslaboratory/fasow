@@ -1,7 +1,7 @@
 import type Calibration from '../../abm/Calibration';
 import MetaEnvironmentConfig from './MetaEnvironmentConfig';
 
-export default interface MetaExperimentConfig {
+export default interface MetaCalibrationConfig {
   // Experiment Metadata
   readonly id: number;
   name: string;
