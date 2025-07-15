@@ -8,7 +8,7 @@ import CanSaturatedActionShare from './CanSaturatedActionShare';
 import EffectAgent from './EffectAgent';
 import EnvironmentEffectTwitter from './EnvironmentEffectTwitter';
 
-export default class MessageRepetition extends Calibration {
+export default class Calibration2 extends Calibration {
   Strategy(): void {
     FASOW.TowerHandler.registerNewAction(CanSaturatedActionShare);
     FASOW.TowerHandler.registerNewAction(CanSaturatedActionRead);
@@ -50,7 +50,7 @@ export default class MessageRepetition extends Calibration {
 
     FASOW.TowerHandler.setCalibrationName('Effect of Message Repetition');
     FASOW.TowerHandler.setCalibrationDescription(
-      'This experiment is for analyze the effect of message repetition in twitter agents on wom marketing campaings',
+      'This calibration is for analyze the effect of message repetition in twitter agents on wom marketing campaings',
     );
     FASOW.TowerHandler.setScenarioConfig({
       networkSize: 10000,
@@ -62,6 +62,6 @@ export default class MessageRepetition extends Calibration {
   }
 
   createCalibration(): Calibration {
-    return new MessageRepetition();
+    return new Calibration2();
   }
 }
