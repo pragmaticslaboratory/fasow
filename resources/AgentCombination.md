@@ -12,7 +12,7 @@ type of agent manages to share or keep the same message alive for a longer time
 This way we can compare each of the scenarios and see which type of agent is best to start the campaign
 
 For the first case, only the first Calibration layer was needed, so a new Experiment (Calibration)
-called ExperimentAgentCombination is created
+called CalibrationCase1 is created
 
 ```typescript
 import FASOW from 'src/fasow';
@@ -26,10 +26,10 @@ import { ExperimentCount } from 'src/fasow/fasow/datahandler/decorators/DataHand
 import EnvironmentTwitter from 'src/fasow/fasow/scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from 'src/fasow/fasow/scenarios/twitter/TwitterAgent';
 
-export default class ExperimentAgentCombination extends Experiment {
+export default class CalibrationCase1 extends Experiment {
 
   createExperiment(): Experiment {
-    return new ExperimentAgentCombination();
+    return new CalibrationCase1();
   }
 }
 ```
@@ -48,7 +48,7 @@ and passing their parameters correctly.
 
 Therefore, we already know the classes we need, so we register them with the TowerHandler.
 ```typescript 
-export default class ExperimentAgentCombination extends Experiment {
+export default class CalibrationCase1 extends Experiment {
   
   Strategy() {
     /...
@@ -71,7 +71,7 @@ It was marked as an ExperimentCount, so datahandler will query the state of this
 a change in iteration is notified.
 
 ```typescript
-export default class ExperimentAgentCombination extends Experiment {
+export default class CalibrationCase1 extends Experiment {
 
   public percentageAvr: number = 95;
   public finalPercentageHub: number = 2.5;
@@ -95,7 +95,7 @@ the `seed` indicator to indicate if it will be an agent that will start the WOM 
 and the initial state with which the agent should be instantiated.
 
 ```typescript
-class ExperimentAgentCombination extends Experiment{
+class CalibrationCase1 extends Experiment{
   
   public static getMetaConfig(
     name: string,
@@ -176,20 +176,20 @@ class ExperimentAgentCombination extends Experiment{
 We proceed to use this function in the strategy
 
 ```typescript
-const avrConfig: MetaAgentConfig = ExperimentAgentCombination.getMetaConfig(
+const avrConfig: MetaAgentConfig = CalibrationCase1.getMetaConfig(
   'average',
   this.percentageAvr,
   false,
   AgentState.NOT_READ,
 );
-const hubConfig: MetaAgentConfig = ExperimentAgentCombination.getMetaConfig(
+const hubConfig: MetaAgentConfig = CalibrationCase1.getMetaConfig(
   'hub',
   this.finalPercentageHub,
   true,
   AgentState.READY_TO_SHARE,
 );
 const leaderConfig: MetaAgentConfig =
-  ExperimentAgentCombination.getMetaConfig(
+  CalibrationCase1.getMetaConfig(
     'leader',
     this.finalPercentageLeader,
     true,
@@ -218,7 +218,7 @@ Finally, it was necessary to override the run method, to better manage
 how the simulation will be executed, so
 
 ```typescript
-export default class ExperimentAgentCombination extends Experiment {
+export default class CalibrationCase1 extends Experiment {
 
   run() {
     for (let i: number = 10; i < 100; i += 10) {

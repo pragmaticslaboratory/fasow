@@ -9,7 +9,7 @@ import { CalibrationCount } from 'src/fasow/fasow/datahandler/decorators/DataHan
 import EnvironmentTwitter from 'src/fasow/fasow/scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from 'src/fasow/fasow/scenarios/twitter/TwitterAgent';
 
-export default class ExperimentAgentCombination extends Calibration {
+export default class CalibrationCase1 extends Calibration {
   public percentageAvr: number = 95;
   public finalPercentageHub: number = 2.5;
   public finalPercentageLeader: number = 2.5;
@@ -120,20 +120,20 @@ export default class ExperimentAgentCombination extends Calibration {
     FASOW.TowerHandler.registerNewAction(ActionRead);
     FASOW.TowerHandler.registerNewAction(ActionShare);
     FASOW.TowerHandler.registerNewEnvironment(EnvironmentTwitter);
-    const avrConfig: MetaAgentConfig = ExperimentAgentCombination.getMetaConfig(
+    const avrConfig: MetaAgentConfig = CalibrationCase1.getMetaConfig(
       'average',
       this.percentageAvr,
       false,
       AgentState.NOT_READ,
     );
-    const hubConfig: MetaAgentConfig = ExperimentAgentCombination.getMetaConfig(
+    const hubConfig: MetaAgentConfig = CalibrationCase1.getMetaConfig(
       'hub',
       this.finalPercentageHub,
       true,
       AgentState.READY_TO_SHARE,
     );
     const leaderConfig: MetaAgentConfig =
-      ExperimentAgentCombination.getMetaConfig(
+      CalibrationCase1.getMetaConfig(
         'leader',
         this.finalPercentageLeader,
         true,
@@ -152,6 +152,6 @@ export default class ExperimentAgentCombination extends Calibration {
   }
 
   createCalibration(): Calibration {
-    return new ExperimentAgentCombination();
+    return new CalibrationCase1();
   }
 }

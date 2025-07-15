@@ -51,7 +51,7 @@ import Experiment from 'src/fasow/fasow/abm/Calibration';
 export default class CalibrationAgentCombinationBestSeed extends Calibration {
 
   createExperiment(): Calibration {
-    return new ExperimentAgentCombination();
+    return new CalibrationCase1();
   }
 }
 
@@ -249,7 +249,7 @@ import CalibrationAgentCombinationBestSeed from 'src/experiments/CalibrationAgen
 const fasowConfig = [
   ExampleExperiment,
   /** Add Her your new Calibrations below **/
-  ExperimentAgentCombination,
+  CalibrationCase1,
   ExperimentAgentCombinationBestSeed,
 ];
 

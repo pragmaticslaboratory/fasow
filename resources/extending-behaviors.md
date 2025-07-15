@@ -28,13 +28,13 @@ as the following way:
 
 ```typescript
 //..fasowLoader.ts
-import ExperimentAgentCombination from 'src/experiments/ExperimentAgentCombinatio/ExperimentAgentCombination';
+import CalibrationCase1 from 'src/experiments/ExperimentAgentCombinatio/CalibrationCase1';
 import ExperimentAgentCombinationBestSeed from 'src/experiments/ExperimentAgentCombinatio/ExperimentAgentCombinationBestSeed';
 import ExampleExperiment from './experiments/ExampleExperiment';
 import TestExperiment from './experiments/TestExperiment/TestExperiment';
 
 const fasowConfig = [
-  ExperimentAgentCombination,
+  CalibrationCase1,
   ExperimentAgentCombinationBestSeed,
   ExampleExperiment,
   /** Add your Experiments below to register them on Fasow**/

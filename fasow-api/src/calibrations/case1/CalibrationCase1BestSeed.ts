@@ -9,7 +9,7 @@ import { CalibrationCount } from 'src/fasow/fasow/datahandler/decorators/DataHan
 import EnvironmentTwitter from 'src/fasow/fasow/scenarios/twitter/EnvironmentTwitter';
 import TwitterAgent from 'src/fasow/fasow/scenarios/twitter/TwitterAgent';
 
-export default class ExperimentAgentCombinationBestSeed extends Calibration {
+export default class CalibrationCase1BestSeed extends Calibration {
   // who is the better seed ?
   // avr --> hub --> leader
   @CalibrationCount('seed-type')
@@ -76,7 +76,7 @@ export default class ExperimentAgentCombinationBestSeed extends Calibration {
       state: AgentState.NOT_READ,
       followersPercentage: 0.057,
       actionsConfigs:
-        ExperimentAgentCombinationBestSeed.getActionsConfig('average'),
+        CalibrationCase1BestSeed.getActionsConfig('average'),
     };
     const seedConfig: MetaAgentConfig = {
       id: 1,
@@ -87,7 +87,7 @@ export default class ExperimentAgentCombinationBestSeed extends Calibration {
       state: AgentState.READY_TO_SHARE,
       followersPercentage: 1.14225,
       actionsConfigs:
-        ExperimentAgentCombinationBestSeed.getActionsConfig('hub'),
+        CalibrationCase1BestSeed.getActionsConfig('hub'),
     };
     FASOW.TowerHandler.setCalibrationName(`best seed type ?`);
     FASOW.TowerHandler.setCalibrationDescription('Who are the best seed type ?');
@@ -101,6 +101,6 @@ export default class ExperimentAgentCombinationBestSeed extends Calibration {
   }
 
   createCalibration(): Calibration {
-    return new ExperimentAgentCombinationBestSeed();
+    return new CalibrationCase1BestSeed();
   }
 }
