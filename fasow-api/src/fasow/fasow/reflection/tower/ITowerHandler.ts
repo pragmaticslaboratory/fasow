@@ -115,27 +115,27 @@ export default class ITowerHandler {
   /* Experiment API */
 
   setExperimentName(name: string) {
-    this.ExperimentAPI.setExperimentName(name);
+    this.ExperimentAPI.setCalibrationName(name);
   }
 
   setExperimentMaxRepetitions(maxRepetitions: number) {
-    this.ExperimentAPI.setExperimentMaxRepetitions(maxRepetitions);
+    this.ExperimentAPI.setCalibrationMaxRepetitions(maxRepetitions);
   }
 
   setExperimentDescription(description: string) {
-    this.ExperimentAPI.setExperimentDescription(description);
+    this.ExperimentAPI.setCalibrationDescription(description);
   }
 
   registerNewExperiment(experiment: typeof Calibration) {
-    this.ExperimentAPI.registerNewExperiment(experiment);
+    this.ExperimentAPI.registerNewCalibration(experiment);
   }
 
   selectExperiment(select: typeof Calibration) {
-    this.ExperimentAPI.selectExperiment(select);
+    this.ExperimentAPI.selectCalibration(select);
   }
 
   getExperimentConfig(): MetaCalibrationConfig {
-    return this.ExperimentAPI.getExperimentConfig();
+    return this.ExperimentAPI.getCalibrationConfig();
   }
 
   /*
@@ -144,11 +144,11 @@ export default class ITowerHandler {
   } */
 
   createSelectedExperiment(): Calibration {
-    return this.ExperimentAPI.createSelectedExperiment();
+    return this.ExperimentAPI.createSelectedCalibration();
   }
 
   selectExperimentByName(experiment: string) {
-    this.ExperimentAPI.selectExperimentByName(experiment);
+    this.ExperimentAPI.selectCalibrationByName(experiment);
   }
 
   /* Experiment API */
@@ -171,11 +171,11 @@ export default class ITowerHandler {
   }
 
   getSelectedExperiment(): typeof Calibration {
-    return this.ExperimentAPI.getSelectedExperiment();
+    return this.ExperimentAPI.getSelectedCalibration();
   }
 
   getSelectedExperimentTypeName(): string {
-    return this.ExperimentAPI.getSelectedExperiment().name;
+    return this.ExperimentAPI.getSelectedCalibration().name;
   }
 }
 

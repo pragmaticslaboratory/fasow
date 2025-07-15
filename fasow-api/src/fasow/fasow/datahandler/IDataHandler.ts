@@ -94,8 +94,8 @@ export default class IDataHandler {
    * @private this method is called by the update.
    */
   private writeLine() {
-    const repetition = FASOW.experiment.getRepetition();
-    const tick = FASOW.experiment.simulation.environment.getTick();
+    const repetition = FASOW.calibration.getRepetition();
+    const tick = FASOW.calibration.simulation.environment.getTick();
     const finalRow = { repetition, tick };
 
     // Experiments Row Data
@@ -125,7 +125,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateEnvironmentAccum(): any {
-    const envi = FASOW.experiment.simulation.environment;
+    const envi = FASOW.calibration.simulation.environment;
     const row = {};
     AccumEnvironmentObjectKeys.forEach((item) => {
       let oldValue = 0;
@@ -145,7 +145,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateEnvironmentCounts(): any {
-    const envi = FASOW.experiment.simulation.environment;
+    const envi = FASOW.calibration.simulation.environment;
     const row = {};
     CountEnvironmentKeys.forEach((item) => {
       if (item.target.constructor.name === envi.constructor.name) {
@@ -163,7 +163,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateAgentStateIntegerCounts(): any {
-    const { agents } = FASOW.experiment.simulation.environment;
+    const { agents } = FASOW.calibration.simulation.environment;
     const row = {};
     CountAgentStatesObjectKeysArray.forEach((item) => {
       let countVar = 0;
@@ -184,9 +184,9 @@ export default class IDataHandler {
   private calculateExperimentCounts(): any {
     const row = {};
     CountExperimentsKeys.forEach((item) => {
-      if (item.target.constructor.name === FASOW.experiment.constructor.name) {
+      if (item.target.constructor.name === FASOW.calibration.constructor.name) {
         const key = item.propertyKey;
-        const value = Reflect.get(FASOW.experiment, key);
+        const value = Reflect.get(FASOW.calibration, key);
         Reflect.set(row, item.column_name, value);
       }
     });
@@ -198,7 +198,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateAgentBooleanCounts(): any {
-    const { agents } = FASOW.experiment.simulation.environment;
+    const { agents } = FASOW.calibration.simulation.environment;
     const row = {};
     CountAgentBooleanObjectKeysArray.forEach((item) => {
       let counter = 0;
@@ -228,7 +228,7 @@ export default class IDataHandler {
    * @private this method is called on writeLine method.
    */
   private calculateAgentAccum() {
-    const { agents } = FASOW.experiment.simulation.environment;
+    const { agents } = FASOW.calibration.simulation.environment;
     const row = {};
     AccumAgentKeysArray.forEach((item) => {
       let sum = 0;

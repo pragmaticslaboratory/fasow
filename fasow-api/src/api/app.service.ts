@@ -25,7 +25,7 @@ export class AppService {
   }
 
   runSelectedExperiment() {
-    return this.fasowInstance.runSelectedExperiment();
+    return this.fasowInstance.runSelectedCalibration();
   }
 
   getOutput() {

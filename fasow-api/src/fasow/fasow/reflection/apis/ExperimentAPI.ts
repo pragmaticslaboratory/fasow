@@ -3,7 +3,7 @@ import MetaCalibrationConfig from '../../config/metaconfig/MetaCalibrationConfig
 import FASOW from '../../FASOW';
 import { getTypesOfObject } from '../StructureHandler';
 
-interface IConfigExperimentAPI {
+interface IConfigCalibrationAPI {
   id: number;
   name: string;
   description: string;
@@ -24,15 +24,15 @@ interface IConfigExperimentAPI {
  * uso de sus APIs asociadas. Al agregar nuevas caracterısticas
  * que requiera modificar la estructura basica de FASOW, los
  * cambios se deben realizar en primera instancia en la capa de
- * Experiment para luego a medida que sea necesario ir efectuando
+ * Calibration para luego a medida que sea necesario ir efectuando
  * estos cambios en las capas superiores de la torre de reflexion
  * haciendo uso del TowerHandler.
  */
-export default class IExperimentAPI {
-  private experimentList: Map<string, typeof Calibration>;
-  private selectedExperiment!: typeof Calibration;
+export default class ICalibrationAPI {
+  private calibrationList: Map<string, typeof Calibration>;
+  private selectedCalibration!: typeof Calibration;
 
-  private experimentConfig: IConfigExperimentAPI = {
+  private calibrationConfig: IConfigCalibrationAPI = {
     id: 0,
     name: '',
     description: '',
@@ -40,75 +40,77 @@ export default class IExperimentAPI {
   };
 
   constructor() {
-    this.experimentList = new Map<string, typeof Calibration>();
+    this.calibrationList = new Map<string, typeof Calibration>();
   }
 
   /* Strategy Handlers */
 
-  registerNewExperiment(exp: typeof Calibration) {
-    // todo : maybe you need to handle what happen if you try to add some experiment and that already has been added
-    // if (!this.experimentList.has(exp)) {
-    this.experimentList.set(exp.name, exp);
+  registerNewCalibration(exp: typeof Calibration) {
+    // todo : maybe you need to handle what happen if you try to add some calibration and that already has been added
+    // if (!this.calibrationList.has(exp)) {
+    this.calibrationList.set(exp.name, exp);
     //  return;
     // }
     // throw Error(
-    //   `The referenced Experiment type '${exp}' has already been added`
+    //   `The referenced Calibration type '${exp}' has already been added`
     // );
   }
 
   /* Strategy Handlers */
 
-  /* Configure Experiment */
+  /* Configure Calibration */
 
-  setExperimentName(name: string) {
-    this.experimentConfig.name = name;
+  setCalibrationName(name: string) {
+    this.calibrationConfig.name = name;
   }
 
-  setExperimentDescription(description: string) {
-    this.experimentConfig.description = description;
+  setCalibrationDescription(description: string) {
+    this.calibrationConfig.description = description;
   }
 
-  setExperimentMaxRepetitions(maxRepetitions: number) {
+  setCalibrationMaxRepetitions(maxRepetitions: number) {
     // FASOW.TowerHandler.setMaxRepetition(maxRepetitions);
-    FASOW.experiment.setMaxRepetition(maxRepetitions);
-    this.experimentConfig.maxRepetitions = maxRepetitions;
+    FASOW.calibration.setMaxRepetition(maxRepetitions);
+    this.calibrationConfig.maxRepetitions = maxRepetitions;
   }
 
-  /* Configure Experiment */
+  /* Configure Calibration */
 
-  getExperimentConfig(): MetaCalibrationConfig {
+  getCalibrationConfig(): MetaCalibrationConfig {
     return {
-      id: this.experimentConfig.id,
-      name: this.experimentConfig.name,
-      type: this.selectedExperiment,
-      description: this.experimentConfig.description,
-      maxRepetitions: this.experimentConfig.maxRepetitions,
+      id: this.calibrationConfig.id,
+      name: this.calibrationConfig.name,
+      type: this.selectedCalibration,
+      description: this.calibrationConfig.description,
+      maxRepetitions: this.calibrationConfig.maxRepetitions,
       environmentConfig: FASOW.TowerHandler.getScenarioConfig(),
     };
   }
 
-  createSelectedExperiment(): Calibration {
-    return Reflect.construct(this.selectedExperiment, []);
+  createSelectedCalibration(): Calibration {
+    return Reflect.construct(this.selectedCalibration, []);
   }
 
-  selectExperiment(selected: typeof Calibration) {
-    if (this.experimentList.has(selected.name)) {
-      this.selectedExperiment = selected;
+  selectCalibration(selected: typeof Calibration) {
+    if (this.calibrationList.has(selected.name)) {
+      this.selectedCalibration = selected;
       return;
     }
-    throw Error(`The referenced type '${selected}' not exist in ExperimentAPI`);
+    throw Error(
+      `The referenced type '${selected}' not exist in CalibrationAPI`,
+    );
   }
 
-  getSelectedExperiment(): typeof Calibration {
-    return this.selectedExperiment;
+  getSelectedCalibration(): typeof Calibration {
+    return this.selectedCalibration;
   }
 
   getState(): any {
-    // console.log("ExperimentAPI.state: ");
+    // console.log("CalibrationAPI.state: ");
 
     const excludedProps: any[] = ['simulation'];
     const outputState: any[] = [];
-    this.experimentList.forEach((type) => {
+    this.calibrationList.forEach((type) => {
       const expectedObject = Reflect.construct(type, []);
       // console.log("Name: ", type.name);
       outputState.push({
@@ -119,13 +121,13 @@ export default class IExperimentAPI {
     return outputState;
   }
 
-  selectExperimentByName(experiment: string) {
-    if (this.experimentList.has(experiment)) {
-      this.selectedExperiment = this.experimentList.get(experiment);
+  selectCalibrationByName(calibration: string) {
+    if (this.calibrationList.has(calibration)) {
+      this.selectedCalibration = this.calibrationList.get(calibration);
       return;
     }
     throw Error(
-      `The referenced type '${experiment}' not exist in ExperimentAPI`,
+      `The referenced type '${calibration}' not exist in CalibrationAPI`,
     );
   }
 }
